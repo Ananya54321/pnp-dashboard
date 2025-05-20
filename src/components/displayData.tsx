@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { Button } from './ui/button'
-import { Toaster } from 'sonner'
 import { toast } from 'sonner'
 import { Input } from './ui/input'
 
@@ -523,7 +522,6 @@ const DisplayData = () => {
           </tbody>
         </table>
       </div>
-      <Toaster position="top-center" />
     </div>
   );
 };
