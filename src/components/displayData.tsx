@@ -98,6 +98,7 @@ const DisplayData = () => {
       } catch (err) {
         setError("Failed to fetch data");
         setLoading(false);
+        console.log(err);
         toast.error("Failed to fetch URL data");
       }
     };
