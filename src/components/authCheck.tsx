@@ -3,7 +3,6 @@ import React, { useState, ReactNode } from 'react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { toast } from 'sonner'
-import axios from 'axios'
 import { comparePassword } from '@/lib/hash'
 
 interface AuthCheckProps {
