@@ -95,7 +95,7 @@ const DisplayData = () => {
         }
         
         setLoading(false);
-      } catch (err) {
+      } catch (err: unknown) {
         setError("Failed to fetch data");
         setLoading(false);
         console.log(err);
@@ -141,19 +141,39 @@ const DisplayData = () => {
     
     // Sort the data
     filtered.sort((a, b) => {
-      let aValue = a[filters.sortBy as keyof URLData];
-      let bValue = b[filters.sortBy as keyof URLData];
+      const aValue = a[filters.sortBy as keyof URLData];
+      const bValue = b[filters.sortBy as keyof URLData];
       
       // Handle date comparison
-      if (typeof aValue === 'string' && (filters.sortBy === 'createdAt' || filters.sortBy === 'updatedAt')) {
-        aValue = new Date(aValue as string).getTime();
-        bValue = new Date(bValue as string).getTime();
+      if (typeof aValue === 'string' && typeof bValue === 'string' && 
+          (filters.sortBy === 'createdAt' || filters.sortBy === 'updatedAt')) {
+        const aTime = new Date(aValue).getTime();
+        const bTime = new Date(bValue).getTime();
+        
+        if (filters.sortDirection === 'asc') {
+          return aTime - bTime;
+        } else {
+          return bTime - aTime;
+        }
       }
       
+      // Handle numerical comparison
+      if (typeof aValue === 'number' && typeof bValue === 'number') {
+        if (filters.sortDirection === 'asc') {
+          return aValue - bValue;
+        } else {
+          return bValue - aValue;
+        }
+      }
+      
+      // For other types, use string comparison as fallback
+      const aStr = String(aValue);
+      const bStr = String(bValue);
+      
       if (filters.sortDirection === 'asc') {
-        return (aValue as number) - (bValue as number);
+        return aStr.localeCompare(bStr);
       } else {
-        return (bValue as number) - (aValue as number);
+        return bStr.localeCompare(aStr);
       }
     });
     
@@ -182,7 +202,7 @@ const DisplayData = () => {
     }
   };
   
-  const handleFilterChange = (filterType: keyof FilterState, field: string, value: any) => {
+  const handleFilterChange = (filterType: keyof FilterState, field: string, value: string | number) => {
     if (filterType === 'totalClicks' || filterType === 'uniqueClicks' || filterType === 'dateRange') {
       setFilters(prevFilters => ({
         ...prevFilters,
