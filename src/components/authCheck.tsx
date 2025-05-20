@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { toast } from 'sonner'
 import axios from 'axios'
+import { comparePassword } from '@/lib/hash'
 
 interface AuthCheckProps {
   children: ReactNode;
@@ -18,17 +19,18 @@ const AuthCheck = ({ children, secretCode }: AuthCheckProps) => {
 
   const checkCode = () => {
     setLoading(true);
-    
-    // Simulate a slight delay for security perception
-    setTimeout(async () => {
-      const response = await axios.get(`https://pickandpartner-94sz.onrender.com/compare/${code}/${secretCode}`);
-      if (response.data.success) {
-        setIsAuthenticated(true);
-        toast.success('Access granted!');
-      } else {
-        const newAttempts = attempts + 1;
-        setAttempts(newAttempts);
-        toast.error(`Incorrect code. Attempt ${newAttempts} of 3.`);
+
+    const isValid = comparePassword(code, secretCode);
+    console.log('Code:', code);
+    console.log('Secret Code:', secretCode);
+    console.log('Is Valid:', isValid);
+    if (isValid) {
+      setIsAuthenticated(true);
+      toast.success('Access granted!');
+    } else {
+      const newAttempts = attempts + 1;
+      setAttempts(newAttempts);
+      toast.error(`Incorrect code. Attempt ${newAttempts} of 3.`);
         
         // Lock out after 3 failed attempts
         if (newAttempts >= 3) {
@@ -36,11 +38,10 @@ const AuthCheck = ({ children, secretCode }: AuthCheckProps) => {
           setCode('');
           setTimeout(() => {
             setAttempts(0);
-          }, 30000); // Reset after 30 seconds
+          }, 5000); // Reset after 5 seconds
         }
       }
       setLoading(false);
-    }, 500);
   };
 
   if (!isAuthenticated) {
@@ -88,7 +89,7 @@ const AuthCheck = ({ children, secretCode }: AuthCheckProps) => {
             
             {attempts >= 3 && (
               <p className="text-sm text-red-500 text-center mt-2">
-                Too many failed attempts. Please wait 30 seconds.
+                Too many failed attempts. Please wait 5 seconds.
               </p>
             )}
           </div>

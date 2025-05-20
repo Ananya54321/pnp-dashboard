@@ -8,7 +8,7 @@ import { Toaster } from 'sonner'
 const page = () => {
   // This would typically be stored in an environment variable or configuration
   // For production, NEVER hardcode secrets in your components
-  const secretAccessCode = "$2a$12$QldHQYr6EaApJP85KiJWO.mLI3R..8s.OguyEQob5saQ7FJ5mJfWS";
+  const secretAccessCode = "$2b$12$UxSe7NS6oLF.61vH8jfTSOE0liHmlgcKa/K.JJWy0eZJ4AZhXTGR2";
   
   return (
     <>
