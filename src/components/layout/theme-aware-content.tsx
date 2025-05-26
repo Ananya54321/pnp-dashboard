@@ -2,7 +2,7 @@
 "use client";
 import { useState, useEffect } from "react";
 
-export function ThemeAwareContent({ children }: React.PropsWithChildren<{}>) {
+export function ThemeAwareContent({ children }: React.PropsWithChildren) {
   const [mounted, setMounted] = useState(false);
   
   // Only show content after component has mounted (client-side)

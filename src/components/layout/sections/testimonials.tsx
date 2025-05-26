@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useTheme } from "next-themes";
 import Marquee from "@/components/magicui/marquee";
 
@@ -66,7 +66,6 @@ const TestimonialsSection = () => {
   const subText = isDarkMode ? "text-gray-300" : "text-gray-700";
   const cardBg = isDarkMode ? "bg-slate-800/50" : "bg-gray-100";
   const cardBorder = isDarkMode ? "border-slate-700/50" : "border-gray-300";
-  const shadowColor = isDarkMode ? "shadow-blue-500/10" : "shadow-gray-300";
   const quoteText = isDarkMode ? "text-gray-200" : "text-gray-800";
   const authorRole = isDarkMode ? "text-gray-400" : "text-gray-500";
 

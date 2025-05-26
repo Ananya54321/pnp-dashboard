@@ -7,7 +7,7 @@ dotenv.config();
 const SCOPES = ['https://www.googleapis.com/auth/spreadsheets'];
 
 // Decode the base64-encoded service account key from environment variables
-function getServiceAccountCredentials(): any {
+function getServiceAccountCredentials(): Record<string, unknown> {
   const keyBase64 = process.env.GOOGLE_SERVICE_ACCOUNT_KEY;
   if (!keyBase64) {
     throw new Error('GOOGLE_SERVICE_ACCOUNT_KEY environment variable is not set.');

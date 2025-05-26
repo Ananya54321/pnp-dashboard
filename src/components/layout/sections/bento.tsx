@@ -3,8 +3,7 @@ import {
   BarChart3, 
   Brain, 
   Target, 
-  TrendingUp, 
-  Zap 
+  TrendingUp
 } from "lucide-react";
 import { BentoCard, BentoGrid } from "@/components/magicui/bento-grid";
 

@@ -18,7 +18,7 @@ export const CalculatorSection = () => {
   const borderColor = isDarkMode ? "border-slate-500" : "border-gray-300";
 
   return (
-    <section className={`w-full ${bgColor} py-16 md:py-24`}>
+    <section className={`w-full ${bgColor} `}>
       <div className="max-w-screen-xl mx-auto px-4 sm:px-6">
         <div className={`border ${borderColor} rounded-2xl shadow-md shadow-blue-600/20 p-6 md:p-8 max-w-3xl mx-auto`}>
           <div className="flex items-center mb-6">

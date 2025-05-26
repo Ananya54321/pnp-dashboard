@@ -1,4 +1,4 @@
-import { LucideIcon, icons } from "lucide-react";
+import { icons } from "lucide-react";
 
 interface IconProps {
   name: keyof typeof icons;

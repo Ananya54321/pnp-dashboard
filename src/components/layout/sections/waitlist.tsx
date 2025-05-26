@@ -8,33 +8,16 @@ import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 
 import { appendData } from "@/utils/appendData";
 import { AlertDialogCancel } from "@/components/ui/alert-dialog";
 import { CircleCheck } from "lucide-react";
-
-interface UserData {
-  name: string;
-  email: string;
-  newsletterName: string;
-  niche: string;
-  newsletterLink: string;
-  subscribersCount: number;
-}
 
 const formSchema = z.object({
   name: z.string().min(2, { message: "Name must be at least 2 characters." }),
@@ -73,9 +56,9 @@ export const WaitlistSection = () => {
       (numberOfUsersInWaitlist) => numberOfUsersInWaitlist + 1
     );
 
-    let range = "Sheet1!A" + (1 + numberOfUsersInWaitlist);
-    let userData = [{ ...values }];
-    // @ts-ignore
+    const range = "Sheet1!A" + (1 + numberOfUsersInWaitlist);
+    const userData = [{ ...values }];
+    // @ts-expect-error - appendData function type needs fixing
     await appendData(range, userData);
 
     setIsSubmitting(false);

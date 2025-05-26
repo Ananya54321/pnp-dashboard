@@ -5,7 +5,6 @@ import { cn } from "@/lib/utils";
 import { Navbar } from "@/components/layout/navbar";
 import { ThemeProvider } from "@/components/layout/theme-provider";
 import { ThemeAwareContent } from "@/components/layout/theme-aware-content"; // Import the new component
-import StarsCanvas from "@/components/main/StarBackground";
 
 const inter = Inter({ subsets: ["latin"] });
 // const inter = Inter({

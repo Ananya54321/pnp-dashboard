@@ -1,6 +1,21 @@
-import { Socials } from "@/constants";
 import Image from "next/image";
 import React from "react";
+
+// Social media constants
+const Socials = [
+  {
+    name: "Discord",
+    src: "/discord.svg",
+  },
+  {
+    name: "LinkedIn", 
+    src: "/linkedin.svg",
+  },
+  {
+    name: "X",
+    src: "/x.svg",
+  },
+];
 
 const Navbar = () => {
   return (

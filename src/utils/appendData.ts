@@ -18,7 +18,7 @@ interface UserData {
     const sheets = getSheetsClient();
   
     // Convert the userData array to a format suitable for Google Sheets
-    const values: any[][] = userData.map(({ name, email, userType }) => [name, email, userType]);
+    const values: (string | undefined)[][] = userData.map(({ name, email, userType }) => [name, email, userType]);
     const resource: sheets_v4.Schema$ValueRange = {
       values,
     };

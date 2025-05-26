@@ -2,7 +2,6 @@
 
 import { cn } from "@/lib/utils";
 import DottedMap from "dotted-map";
-import Image from "next/image";
 import { useEffect, useState } from "react";
 
 interface MapProps {

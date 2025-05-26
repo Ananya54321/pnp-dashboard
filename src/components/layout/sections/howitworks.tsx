@@ -1,6 +1,5 @@
 "use client";
 import React from "react";
-import { useTheme } from "next-themes";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { useId } from "react";
@@ -89,8 +88,6 @@ const steps = [
 ];
 
 const HowItWorks = () => {
-	const { theme } = useTheme();
-	const isDarkMode = theme === "dark";
 
 	return (
 		<section className="relative py-20 lg:py-32 overflow-hidden">
@@ -128,7 +125,7 @@ const HowItWorks = () => {
 							transition={{ duration: 0.8, delay: index * 0.2 }}
 							viewport={{ once: true }}
 						>
-							<Grid size={20} />
+							<Grid size={20} pattern={undefined} />
 							
 							{/* Step Number */}
 							<div className="flex items-center justify-between mb-6">
@@ -181,7 +178,12 @@ const HowItWorks = () => {
 };
 
 // Grid Component for Background Pattern
-const Grid = ({ pattern, size }) => {
+interface GridProps {
+	pattern?: number[][];
+	size?: number;
+}
+
+const Grid = ({ pattern, size }: GridProps) => {
 	const p = pattern ?? [
 		[Math.floor(Math.random() * 4) + 7, Math.floor(Math.random() * 6) + 1],
 		[Math.floor(Math.random() * 4) + 7, Math.floor(Math.random() * 6) + 1],
@@ -205,7 +207,16 @@ const Grid = ({ pattern, size }) => {
 	);
 };
 
-export function GridPattern({ width, height, x, y, squares, ...props }) {
+interface GridPatternProps {
+	width: number;
+	height: number;
+	x: string;
+	y: string;
+	squares?: number[][];
+	className?: string;
+}
+
+export function GridPattern({ width, height, x, y, squares, ...props }: GridPatternProps) {
 	const patternId = useId();
 
 	return (
@@ -225,14 +236,14 @@ export function GridPattern({ width, height, x, y, squares, ...props }) {
 			<rect width="100%" height="100%" strokeWidth={0} fill={`url(#${patternId})`} />
 			{squares && (
 				<svg x={x} y={y} className="overflow-visible">
-					{squares.map(([x, y]) => (
+					{squares.map(([squareX, squareY]: number[]) => (
 						<rect
 							strokeWidth="0"
-							key={`${x}-${y}`}
+							key={`${squareX}-${squareY}`}
 							width={width + 1}
 							height={height + 1}
-							x={x * width}
-							y={y * height}
+							x={squareX * width}
+							y={squareY * height}
 						/>
 					))}
 				</svg>

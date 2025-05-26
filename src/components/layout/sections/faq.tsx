@@ -84,8 +84,6 @@ export const FAQSection = () => {
 
   const bgColor = isDarkMode ? "bg-black" : "bg-white";
   const textColor = isDarkMode ? "text-white" : "text-black";
-  const borderColor = isDarkMode ? "border-gray-600" : "border-gray-200";
-  const dividerColor = isDarkMode ? "divide-gray-700" : "divide-gray-200";
 
   return (
     <div className={cn("relative w-full flex justify-center", bgColor, textColor)}>

@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 import { AnimatedGridPattern } from "@/components/magicui/animated-grid-pattern";
 import AnimatedGradientText from "@/components/magicui/animated-gradient-text";
 import ShimmerButton from "@/components/magicui/shimmer-button";
+import { SubscriberAxis } from "@/components/ui/subscriber-axis";
 
 export const HeroSection = () => {
   const { theme } = useTheme();
@@ -17,13 +18,20 @@ export const HeroSection = () => {
     ? "from-white via-blue-300 to-violet-400"
     : "from-[#2D5CE9] via-[#9c40ff] to-[#2D5CE9]";
 
+  // Mock current user data - replace with actual user data
+  const currentUser = {
+    id: "current",
+    name: "Your Newsletter",
+    avatar: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&h=100&fit=crop&crop=face",
+    subscribers: 5200
+  };
+
   return (
     <section className={`w-full ${bgColor} transition-colors duration-300 relative overflow-hidden`}>
       <AnimatedGridPattern
         numSquares={30}
         maxOpacity={0.1}
         duration={3}
-        repeatDelay={1}
         width={70}
         height={70}
         strokeDasharray={4}
@@ -31,7 +39,7 @@ export const HeroSection = () => {
           "absolute inset-0 [mask-image:linear-gradient(to_bottom_right,white,transparent,transparent)]"
         )}
       />
-      <div className="max-w-screen-xl mx-auto px-4 sm:px-6 py-24 md:py-32 flex justify-center items-center">
+      <div className="max-w-screen-xl mx-auto px-4 sm:px-6 pt-24  flex justify-center items-center">
         <div className="text-center space-y-8 relative z-10">
           <AnimatedGradientText className="flex items-center justify-center">
             🎉 <hr className="mx-2 h-4 w-[1px] shrink-0 bg-gray-300" />{" "}
@@ -70,6 +78,12 @@ export const HeroSection = () => {
                 <ArrowRight className="ml-2 h-5 w-5 text-white hover:scale-110" />
               </ShimmerButton>
             </a>
+          </div>
+
+          
+          {/* Subscriber Axis Component */}
+          <div className="mt-24 md:mt-32 ">
+            <SubscriberAxis currentUser={currentUser} />
           </div>
         </div>
       </div>

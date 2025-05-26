@@ -4,7 +4,6 @@ import React from "react";
 import Link from "next/link";
 import { ToggleTheme } from "./toogle-theme";
 import { useTheme } from "next-themes";
-import Image from "next/image";
 
 export const Navbar = () => {
   const { theme } = useTheme();
