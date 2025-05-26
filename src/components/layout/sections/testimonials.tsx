@@ -3,11 +3,9 @@ import React, { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
 import Marquee from "@/components/magicui/marquee";
 
-const Testimonials = () => {
+const TestimonialsSection = () => {
   const { theme } = useTheme();
   const isDarkMode = theme === "dark";
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
 
  
 
@@ -87,8 +85,13 @@ const Testimonials = () => {
       {/* Content */}
       <div className="relative max-w-screen-xl mx-auto px-4 sm:px-6">
         <div className="max-w-2xl mx-auto text-center mb-12 md:mb-16">
-          <h2 className={`text-3xl md:text-4xl font-semibold ${textColor}`}>Testimonials</h2>
-          <p className={`mt-4 text-lg ${subText}`}>
+          <div className="inline-flex items-center justify-center rounded-full bg-blue-50 dark:bg-blue-950 px-4 py-2 mb-4">
+            <span className="text-sm font-medium text-blue-600 dark:text-blue-400 tracking-wider">
+              TESTIMONIALS
+            </span>
+          </div>
+          <h2 className={`text-3xl md:text-4xl font-semibold ${textColor} mb-4`}>What our users say</h2>
+          <p className={`text-lg ${subText}`}>
             Don&apos;t just take our word for it — hear what our users have to say about their experience.
           </p>
         </div>
@@ -158,4 +161,4 @@ const Testimonials = () => {
   );
 };
 
-export default Testimonials;
+export { TestimonialsSection };

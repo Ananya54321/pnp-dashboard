@@ -50,7 +50,7 @@ const formSchema = z.object({
     .nonnegative({ message: "Subscribers count must be a positive number." }),
 });
 
-export default function WaitingListForm() {
+export const WaitlistSection = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setIsSubmitSuccess] = useState(false);
   const [numberOfUsersInWaitlist, setNumberOfUsersInWaitlist] = useState(0);
@@ -164,4 +164,4 @@ export default function WaitingListForm() {
       )}
     </div>
   );
-}
+};

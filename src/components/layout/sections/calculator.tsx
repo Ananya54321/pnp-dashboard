@@ -4,7 +4,7 @@ import { useTheme } from "next-themes";
 import { Calculator as CalculatorIcon } from "lucide-react";
 import { Slider } from "@/components/ui/slider";
 
-export default function Calculator() {
+export const CalculatorSection = () => {
   const { theme } = useTheme();  
   const isDarkMode = theme === "dark";  
   const [subscribers, setSubscribers] = useState(1000);
@@ -65,4 +65,4 @@ export default function Calculator() {
       </div>
     </section>
   );
-}
+};

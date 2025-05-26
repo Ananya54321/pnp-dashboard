@@ -103,6 +103,11 @@ const HowItWorks = () => {
 					transition={{ duration: 0.8 }}
 					viewport={{ once: true }}
 				>
+					<div className="inline-flex items-center justify-center rounded-full bg-blue-50 dark:bg-blue-950 px-4 py-2 mb-4">
+						<span className="text-sm font-medium text-blue-600 dark:text-blue-400 tracking-wider">
+							HOW IT WORKS
+						</span>
+					</div>
 					<h2 className="text-4xl lg:text-6xl font-bold tracking-tight text-black dark:text-white mb-4">
 						How it works{" "}
 						<span className="text-blue-500">⚡</span>
@@ -257,4 +262,4 @@ export function GridPattern({ width, height, x, y, squares, ...props }) {
 	);
 }
 
-export default HowItWorks;
+export const HowItWorksSection = HowItWorks;

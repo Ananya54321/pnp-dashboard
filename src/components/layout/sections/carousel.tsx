@@ -146,4 +146,4 @@ const CarouselSection = () => {
   );
 };
 
-export default CarouselSection;
+export { CarouselSection };

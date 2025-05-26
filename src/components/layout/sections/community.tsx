@@ -9,7 +9,6 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
-import DotPattern from "@/components/magicui/dot-pattern";
 import { useTheme } from "next-themes";
 
 export const CommunitySection = () => {

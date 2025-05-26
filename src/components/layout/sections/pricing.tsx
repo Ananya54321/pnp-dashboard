@@ -74,13 +74,16 @@ const plans: PlanProps[] = [
 export const PricingSection = () => {
   return (
     <section className="container py-24 sm:py-32">
-      <h2 className="text-lg text-primary text-center mb-2 tracking-wider">
-        Pricing
-      </h2>
-
-      <h2 className="text-3xl md:text-4xl text-center font-bold mb-4">
-        Get unlimitted access
-      </h2>
+      <div className="text-center mb-16">
+        <div className="inline-flex items-center justify-center rounded-full bg-blue-50 dark:bg-blue-950 px-4 py-2 mb-4">
+          <span className="text-sm font-medium text-blue-600 dark:text-blue-400 tracking-wider">
+            PRICING
+          </span>
+        </div>
+        <h2 className="text-3xl md:text-4xl font-bold mb-4">
+          Get unlimitted access
+        </h2>
+      </div>
 
       <h3 className="md:w-1/2 mx-auto text-xl text-center text-muted-foreground pb-14">
         Lorem ipsum dolor sit amet consectetur adipisicing reiciendis.

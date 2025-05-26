@@ -1,14 +1,18 @@
 "use client";
 
 import { ContainerScroll } from "@/components/ui/container-scroll-animation";
-import Image from "next/image";
 
-export function PlatformDemoSection() {
+export const PlatformDemoSection = () => {
   return (
     <section className="w-full bg-gradient-to-b from-muted/50 to-background">
       <ContainerScroll
         titleComponent={
           <div className="space-y-4">
+            <div className="inline-flex items-center justify-center rounded-full bg-blue-50 dark:bg-blue-950 px-4 py-2 mb-4">
+              <span className="text-sm font-medium text-blue-600 dark:text-blue-400 tracking-wider">
+                PLATFORM DEMO
+              </span>
+            </div>
             <h2 className="text-4xl md:text-6xl font-bold text-center bg-clip-text text-transparent bg-gradient-to-b from-neutral-900 to-neutral-600 dark:from-neutral-50 dark:to-neutral-400">
               Experience Our Platform
             </h2>
@@ -127,4 +131,4 @@ export function PlatformDemoSection() {
       </ContainerScroll>
     </section>
   );
-}
+};

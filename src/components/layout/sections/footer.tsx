@@ -1,7 +1,6 @@
 "use client";
 
-import { Separator } from "@/components/ui/separator";
-import { Mail, Instagram } from "lucide-react";
+import { Mail } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 

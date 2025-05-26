@@ -3,7 +3,7 @@
 import { WorldMap } from "@/components/magicui/dotted-map";
 import { motion } from "framer-motion";
 
-export function GlobalNetworkSection() {
+export const GlobalNetworkSection = () => {
   // Sample data for influencer locations and connections
   const sampleArcs = [
     {
@@ -43,6 +43,11 @@ export function GlobalNetworkSection() {
             viewport={{ once: true }}
             className="space-y-2"
           >
+            <div className="inline-flex items-center justify-center rounded-full bg-blue-50 dark:bg-blue-950 px-4 py-2 mb-4">
+              <span className="text-sm font-medium text-blue-600 dark:text-blue-400 tracking-wider">
+                GLOBAL NETWORK
+              </span>
+            </div>
             <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
               Global Influencer Network
             </h2>
@@ -97,4 +102,4 @@ export function GlobalNetworkSection() {
       </div>
     </section>
   );
-}
+};

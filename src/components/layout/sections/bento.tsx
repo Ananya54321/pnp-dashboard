@@ -86,12 +86,17 @@ const features = [
   },
 ];
 
-export default function BentoSection() {
+export const BentoSection = () => {
   return (
     <section className="w-full py-12 md:py-24 lg:py-32 flex items-center justify-center">
       <div className="container px-4 md:px-6 max-w-7xl mx-auto">
         <div className="flex flex-col items-center justify-center space-y-4 text-center">
           <div className="space-y-2">
+            <div className="inline-flex items-center justify-center rounded-full bg-blue-50 dark:bg-blue-950 px-4 py-2 mb-4">
+              <span className="text-sm font-medium text-blue-600 dark:text-blue-400 tracking-wider">
+                FEATURES
+              </span>
+            </div>
             <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
               Powerful Features for Influencer Marketing
             </h2>
@@ -110,4 +115,4 @@ export default function BentoSection() {
       </div>
     </section>
   );
-}
+};

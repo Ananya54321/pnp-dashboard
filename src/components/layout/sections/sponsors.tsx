@@ -1,10 +1,8 @@
 "use client";
 
-import { Icon } from "@/components/ui/icon";
 import { cn } from "@/lib/utils";
 import Marquee from "@/components/magicui/marquee";
 
-import { icons } from "lucide-react";
 import Image from "next/image";
 interface sponsorsProps {
   icon: string;

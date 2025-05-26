@@ -1,7 +1,6 @@
 "use client";
 import { ArrowRight, ChevronRight } from "lucide-react";
 import { useTheme } from "next-themes";
-import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { AnimatedGridPattern } from "@/components/magicui/animated-grid-pattern";
 import AnimatedGradientText from "@/components/magicui/animated-gradient-text";
