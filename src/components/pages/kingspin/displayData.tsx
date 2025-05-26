@@ -235,16 +235,16 @@ const DisplayData = () => {
   if (loading) {
     return (
       <div className="flex justify-center items-center min-h-[400px]">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500 dark:border-blue-400"></div>
       </div>
     );
   }
   
   if (error || !data?.success) {
     return (
-      <div className="p-6 bg-red-50 border border-red-200 rounded-lg">
-        <h3 className="text-lg font-medium text-red-800">Error fetching data</h3>
-        <p className="text-red-600">{error || "Unknown error"}</p>
+      <div className="p-6 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
+        <h3 className="text-lg font-medium text-red-800 dark:text-red-400">Error fetching data</h3>
+        <p className="text-red-600 dark:text-red-400">{error || "Unknown error"}</p>
       </div>
     );
   }
@@ -252,7 +252,7 @@ const DisplayData = () => {
   return (
     <div className="space-y-4">
       <div className="flex justify-between items-center">
-        <h2 className="text-2xl font-bold">URL Analytics</h2>
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-white">URL Analytics</h2>
         <Button 
           onClick={() => setShowFilters(!showFilters)}
           variant="outline"
@@ -262,13 +262,13 @@ const DisplayData = () => {
       </div>
       
       {showFilters && (
-        <div className="bg-gray-50 p-4 rounded-lg border shadow-sm">
+        <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
             <div>
-              <h3 className="font-medium text-sm mb-2">Total Clicks</h3>
+              <h3 className="font-medium text-sm mb-2 text-gray-900 dark:text-white">Total Clicks</h3>
               <div className="grid grid-cols-2 gap-2">
                 <div>
-                  <label className="text-xs text-gray-500">Min</label>
+                  <label className="text-xs text-gray-500 dark:text-gray-400">Min</label>
                   <Input 
                     type="number"
                     min="0"
@@ -277,7 +277,7 @@ const DisplayData = () => {
                   />
                 </div>
                 <div>
-                  <label className="text-xs text-gray-500">Max</label>
+                  <label className="text-xs text-gray-500 dark:text-gray-400">Max</label>
                   <Input 
                     type="number"
                     min="0"
@@ -289,10 +289,10 @@ const DisplayData = () => {
             </div>
             
             <div>
-              <h3 className="font-medium text-sm mb-2">Unique Clicks</h3>
+              <h3 className="font-medium text-sm mb-2 text-gray-900 dark:text-white">Unique Clicks</h3>
               <div className="grid grid-cols-2 gap-2">
                 <div>
-                  <label className="text-xs text-gray-500">Min</label>
+                  <label className="text-xs text-gray-500 dark:text-gray-400">Min</label>
                   <Input 
                     type="number"
                     min="0"
@@ -301,7 +301,7 @@ const DisplayData = () => {
                   />
                 </div>
                 <div>
-                  <label className="text-xs text-gray-500">Max</label>
+                  <label className="text-xs text-gray-500 dark:text-gray-400">Max</label>
                   <Input 
                     type="number"
                     min="0"
@@ -313,10 +313,10 @@ const DisplayData = () => {
             </div>
             
             <div>
-              <h3 className="font-medium text-sm mb-2">Created Date</h3>
+              <h3 className="font-medium text-sm mb-2 text-gray-900 dark:text-white">Created Date</h3>
               <div className="grid grid-cols-2 gap-2">
                 <div>
-                  <label className="text-xs text-gray-500">From</label>
+                  <label className="text-xs text-gray-500 dark:text-gray-400">From</label>
                   <Input 
                     type="date"
                     value={filters.dateRange.start}
@@ -324,7 +324,7 @@ const DisplayData = () => {
                   />
                 </div>
                 <div>
-                  <label className="text-xs text-gray-500">To</label>
+                  <label className="text-xs text-gray-500 dark:text-gray-400">To</label>
                   <Input 
                     type="date"
                     value={filters.dateRange.end}
@@ -337,10 +337,10 @@ const DisplayData = () => {
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
             <div>
-              <h3 className="font-medium text-sm mb-2">Sort By</h3>
+              <h3 className="font-medium text-sm mb-2 text-gray-900 dark:text-white">Sort By</h3>
               <div className="grid grid-cols-1 gap-2">
                 <select 
-                  className="p-2 border rounded-md text-sm w-full"
+                  className="p-2 border border-gray-300 dark:border-gray-600 rounded-md text-sm w-full bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                   value={filters.sortBy}
                   onChange={(e) => setFilters(prev => ({ ...prev, sortBy: e.target.value }))}
                 >
@@ -352,10 +352,10 @@ const DisplayData = () => {
             </div>
             
             <div>
-              <h3 className="font-medium text-sm mb-2">Sort Direction</h3>
+              <h3 className="font-medium text-sm mb-2 text-gray-900 dark:text-white">Sort Direction</h3>
               <div className="grid grid-cols-1 gap-2">
                 <select 
-                  className="p-2 border rounded-md text-sm w-full"
+                  className="p-2 border border-gray-300 dark:border-gray-600 rounded-md text-sm w-full bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                   value={filters.sortDirection}
                   onChange={(e) => setFilters(prev => ({ ...prev, sortDirection: e.target.value as SortDirection }))}
                 >
@@ -376,25 +376,25 @@ const DisplayData = () => {
             </div>
           </div>
           
-          <div className="text-sm text-gray-600">
+          <div className="text-sm text-gray-600 dark:text-gray-400">
             Showing {filteredData.length} of {data.urlData.length} URLs
           </div>
         </div>
       )}
       
-      <div className="overflow-x-auto rounded-lg border">
-        <table className="min-w-full divide-y divide-gray-200">
-          <thead className="bg-gray-50">
+      <div className="overflow-x-auto rounded-lg border border-gray-200 dark:border-gray-700">
+        <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+          <thead className="bg-gray-50 dark:bg-gray-800">
             <tr>
-              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
                 Short URL
               </th>
-              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
                 Original URL
               </th>
               <th 
                 scope="col" 
-                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer"
+                className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700"
                 onClick={() => setFilters(prev => ({
                   ...prev,
                   sortBy: 'totalClicks',
@@ -405,7 +405,7 @@ const DisplayData = () => {
               </th>
               <th 
                 scope="col" 
-                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer"
+                className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700"
                 onClick={() => setFilters(prev => ({
                   ...prev,
                   sortBy: 'uniqueClicks',
@@ -416,7 +416,7 @@ const DisplayData = () => {
               </th>
               <th 
                 scope="col" 
-                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer"
+                className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700"
                 onClick={() => setFilters(prev => ({
                   ...prev,
                   sortBy: 'createdAt',
@@ -425,39 +425,39 @@ const DisplayData = () => {
               >
                 Created Date {filters.sortBy === 'createdAt' && (filters.sortDirection === 'desc' ? '▼' : '▲')}
               </th>
-              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
                 Actions
               </th>
             </tr>
           </thead>
-          <tbody className="bg-white divide-y divide-gray-200">
+          <tbody className="bg-white dark:bg-gray-900 divide-y divide-gray-200 dark:divide-gray-700">
             {filteredData.length > 0 ? (
               filteredData.map((url) => (
                 <React.Fragment key={url._id}>
-                  <tr className={`hover:bg-gray-50 ${expandedRow === url._id ? "bg-blue-50" : ""}`}>
+                  <tr className={`hover:bg-gray-50 dark:hover:bg-gray-800 ${expandedRow === url._id ? "bg-blue-50 dark:bg-blue-900/20" : ""}`}>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="flex items-center">
-                        <div className="font-medium text-gray-900">
+                        <div className="font-medium text-gray-900 dark:text-white">
                           {url.shortId}
                         </div>
                       </div>
                     </td>
                     <td className="px-6 py-4 max-w-xs">
-                      <div className="text-sm text-gray-500 truncate" title={url.originalUrl}>
+                      <div className="text-sm text-gray-500 dark:text-gray-400 truncate" title={url.originalUrl}>
                         {url.originalUrl}
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">
+                      <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-300">
                         {url.totalClicks}
                       </span>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                      <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 dark:bg-green-900/50 text-green-800 dark:text-green-300">
                         {url.uniqueClicks}
                       </span>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
                       {formatDate(url.createdAt)}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-2">
@@ -479,31 +479,31 @@ const DisplayData = () => {
                   </tr>
                   {expandedRow === url._id && (
                     <tr>
-                      <td colSpan={6} className="bg-gray-50 px-6 py-4">
+                      <td colSpan={6} className="bg-gray-50 dark:bg-gray-800 px-6 py-4">
                         <div className="space-y-4">
                           <div>
-                            <h4 className="font-medium text-sm mb-2">Visitor Information</h4>
+                            <h4 className="font-medium text-sm mb-2 text-gray-900 dark:text-white">Visitor Information</h4>
                             {url.visitorDetails.length > 0 ? (
                               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
                                 {url.visitorDetails.map((visitor) => (
-                                  <div key={visitor._id} className="bg-white p-2 rounded-md shadow-sm text-sm border">
-                                    <p>ID: {visitor.visitorId.substring(0, 10)}...</p>
-                                    <p>Location: {visitor.city || "Unknown"}</p>
+                                  <div key={visitor._id} className="bg-white dark:bg-gray-700 p-2 rounded-md shadow-sm text-sm border border-gray-200 dark:border-gray-600">
+                                    <p className="text-gray-900 dark:text-white">ID: {visitor.visitorId.substring(0, 10)}...</p>
+                                    <p className="text-gray-600 dark:text-gray-400">Location: {visitor.city || "Unknown"}</p>
                                   </div>
                                 ))}
                               </div>
                             ) : (
-                              <p className="text-sm text-gray-500">No visitor data available</p>
+                              <p className="text-sm text-gray-500 dark:text-gray-400">No visitor data available</p>
                             )}
                           </div>
                           <div className="grid grid-cols-2 gap-4">
                             <div>
-                              <h4 className="font-medium text-sm">Created</h4>
-                              <p className="text-sm text-gray-600">{formatDate(url.createdAt)}</p>
+                              <h4 className="font-medium text-sm text-gray-900 dark:text-white">Created</h4>
+                              <p className="text-sm text-gray-600 dark:text-gray-400">{formatDate(url.createdAt)}</p>
                             </div>
                             <div>
-                              <h4 className="font-medium text-sm">Last Updated</h4>
-                              <p className="text-sm text-gray-600">{formatDate(url.updatedAt)}</p>
+                              <h4 className="font-medium text-sm text-gray-900 dark:text-white">Last Updated</h4>
+                              <p className="text-sm text-gray-600 dark:text-gray-400">{formatDate(url.updatedAt)}</p>
                             </div>
                           </div>
                         </div>
@@ -514,7 +514,7 @@ const DisplayData = () => {
               ))
             ) : (
               <tr>
-                <td colSpan={6} className="px-6 py-4 text-center text-sm text-gray-500">
+                <td colSpan={6} className="px-6 py-4 text-center text-sm text-gray-500 dark:text-gray-400">
                   No URLs match the current filters
                 </td>
               </tr>

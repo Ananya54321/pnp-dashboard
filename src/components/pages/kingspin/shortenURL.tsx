@@ -36,11 +36,11 @@ const ShortenURL = () => {
   
   return (
     <div>
-      <h2 className="text-xl font-bold mb-4">Create Short URL</h2>
+      <h2 className="text-xl font-bold mb-4 text-gray-900 dark:text-white">Create Short URL</h2>
       
       <div className="space-y-4">
         <div>
-          <label htmlFor="url-input" className="text-sm font-medium text-gray-700 mb-1 block">
+          <label htmlFor="url-input" className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-1 block">
             Enter URL to shorten:
           </label>
           <div className="flex gap-2">
@@ -67,10 +67,10 @@ const ShortenURL = () => {
         </div>
         
         {shortUrl !== "" && (
-          <div className="bg-green-50 p-4 rounded-md border border-green-200">
-            <p className="text-sm text-gray-600 mb-2">Your shortened URL:</p>
-            <div className="flex items-center justify-between bg-white p-2 rounded border">
-              <code className="font-mono text-sm overflow-x-auto">{shortUrl}</code>
+          <div className="bg-green-50 dark:bg-green-900/20 p-4 rounded-md border border-green-200 dark:border-green-800">
+            <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">Your shortened URL:</p>
+            <div className="flex items-center justify-between bg-white dark:bg-gray-800 p-2 rounded border border-gray-200 dark:border-gray-700">
+              <code className="font-mono text-sm overflow-x-auto text-gray-900 dark:text-gray-100">{shortUrl}</code>
               <Button size="sm" variant="outline" onClick={copyToClipboard}>
                 Copy
               </Button>
