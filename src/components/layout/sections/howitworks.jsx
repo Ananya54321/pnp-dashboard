@@ -103,11 +103,6 @@ const HowItWorks = () => {
 					transition={{ duration: 0.8 }}
 					viewport={{ once: true }}
 				>
-					<div className="inline-flex items-center justify-center rounded-full bg-blue-50 dark:bg-blue-950 px-4 py-2 mb-4">
-						<span className="text-sm font-medium text-blue-600 dark:text-blue-400 tracking-wider">
-							HOW IT WORKS
-						</span>
-					</div>
 					<h2 className="text-4xl lg:text-6xl font-bold tracking-tight text-black dark:text-white mb-4">
 						How it works{" "}
 						<span className="text-blue-500">⚡</span>
@@ -180,22 +175,6 @@ const HowItWorks = () => {
 					))}
 				</div>
 
-				{/* Call to Action */}
-				<motion.div 
-					className="text-center mt-20"
-					initial={{ opacity: 0, y: 20 }}
-					whileInView={{ opacity: 1, y: 0 }}
-					transition={{ duration: 0.8, delay: 0.6 }}
-					viewport={{ once: true }}
-				>
-					<p className="text-lg text-neutral-600 dark:text-neutral-400 mb-8">
-						Ready to grow your newsletter with strategic partnerships?
-					</p>
-					<button className="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white bg-blue-500 rounded-full hover:bg-blue-600 transition-colors duration-200 shadow-lg hover:shadow-xl">
-						Get Started Today
-						<span className="ml-2">→</span>
-					</button>
-				</motion.div>
 			</div>
 		</section>
 	);
