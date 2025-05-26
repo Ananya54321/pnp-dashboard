@@ -1,9 +1,9 @@
 "use client";
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-import { Button } from './ui/button'
+import { Button } from '../../ui/button'
 import { toast } from 'sonner'
-import { Input } from './ui/input'
+import { Input } from '../../ui/input'
 
 interface VisitorDetail {
   visitorId: string;
