@@ -1,10 +1,9 @@
 'use client'
-import React, { useState } from 'react'
+import React from 'react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-import { Input } from '@/components/ui/input'
 import { 
   Users, 
   TrendingUp, 
@@ -12,7 +11,6 @@ import {
   BookOpen, 
   Star, 
   MessageCircle, 
-  Search,
   Filter,
   BarChart3,
   Zap,
@@ -167,7 +165,6 @@ const popularCreators = [
 ]
 
 const Page = () => {
-  const [searchTerm, setSearchTerm] = useState('')
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-black p-6">
@@ -334,9 +331,9 @@ const Page = () => {
             </CardHeader>
             <CardContent className="space-y-4">
               {nearbyCreators.map((creator) => (
-                <div key={creator.id} className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
-                  <div className="flex items-center space-x-3">
-                    <div className="relative">
+                <div key={creator.id} className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-800 rounded-lg min-w-0">
+                  <div className="flex items-center space-x-3 flex-1 min-w-0">
+                    <div className="relative flex-shrink-0">
                       <Avatar className="w-12 h-12">
                         <AvatarImage src={creator.avatar} alt={creator.creatorName} />
                         <AvatarFallback>{creator.creatorName.split(' ').map(n => n[0]).join('')}</AvatarFallback>
@@ -345,29 +342,29 @@ const Page = () => {
                         <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 border-2 border-white dark:border-gray-800 rounded-full"></div>
                       )}
                     </div>
-                    <div>
-                      <h4 className="font-medium text-gray-900 dark:text-white">{creator.creatorName}</h4>
-                      <p className="text-sm text-gray-600 dark:text-gray-400">{creator.brandName}</p>
-                      <div className="flex items-center space-x-2 mt-1">
-                        <Badge variant="outline" className="text-xs">
+                    <div className="min-w-0 flex-1">
+                      <h4 className="font-medium text-gray-900 dark:text-white truncate">{creator.creatorName}</h4>
+                      <p className="text-sm text-gray-600 dark:text-gray-400 truncate">{creator.brandName}</p>
+                      <div className="flex items-center space-x-2 mt-1 flex-wrap">
+                        <Badge variant="outline" className="text-xs whitespace-nowrap">
                           {creator.subscriberCount.toLocaleString()} subs
                         </Badge>
-                        <Badge variant="outline" className="text-xs">
+                        <Badge variant="outline" className="text-xs whitespace-nowrap">
                           {creator.openRate}% open rate
                         </Badge>
-                        <Badge variant="outline" className="text-xs capitalize">
+                        <Badge variant="outline" className="text-xs capitalize whitespace-nowrap">
                           {creator.frequency}
                         </Badge>
                       </div>
                     </div>
                   </div>
-                  <div className="flex space-x-2">
-                    <Button size="sm" variant="outline">
-                      <MessageCircle className="w-4 h-4 mr-1" />
+                  <div className="flex space-x-2 flex-shrink-0 ml-4">
+                    <Button size="sm" variant="outline" className="px-3 py-1 text-xs">
+                      <MessageCircle className="w-3 h-3 mr-1" />
                       Chat
                     </Button>
-                    <Button size="sm">
-                      <UserPlus className="w-4 h-4 mr-1" />
+                    <Button size="sm" className="px-3 py-1 text-xs">
+                      <UserPlus className="w-3 h-3 mr-1" />
                       Connect
                     </Button>
                   </div>
@@ -391,15 +388,14 @@ const Page = () => {
                   Latest newsletters from your niche
                 </CardDescription>
               </div>
-              <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
-                <Input
-                  placeholder="Search newsletters..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pl-10 w-48"
-                />
-              </div>
+              <Button 
+                variant="outline" 
+                onClick={() => window.location.href = '/creators'}
+                className="flex items-center space-x-2"
+              >
+                <Users className="w-4 h-4" />
+                <span>View All Newsletters</span>
+              </Button>
             </div>
           </CardHeader>
           <CardContent>
