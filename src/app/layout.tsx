@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 import { Navbar } from "@/components/layout/navbar";
 import { ThemeProvider } from "@/components/layout/theme-provider";
 import { ThemeAwareContent } from "@/components/layout/theme-aware-content"; // Import the new component
+import { Toaster } from "@/components/ui/sonner";
 
 const inter = Inter({ subsets: ["latin"] });
 // const inter = Inter({
@@ -31,6 +32,7 @@ export default function RootLayout({
           <ThemeAwareContent> 
             <Navbar />
             {children}
+            <Toaster />
           </ThemeAwareContent>
         </ThemeProvider>
       </body>
