@@ -4,6 +4,7 @@ import React from 'react'
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { toast } from 'sonner'
+import { useRouter } from 'next/navigation'
 import { 
   ChevronDown, 
   ChevronUp, 
@@ -13,7 +14,8 @@ import {
   TrendingUp, 
   Calendar,
   MessageSquare,
-  Copy
+  Copy,
+  Eye
 } from "lucide-react"
 import { Creator } from "./types"
 
@@ -24,6 +26,8 @@ interface CreatorRowProps {
 }
 
 export const CreatorRow = ({ creator, isExpanded, onToggleExpand }: CreatorRowProps) => {
+  const router = useRouter()
+  
   const getFrequencyColor = (frequency: string | undefined) => {
     const colors = {
       daily: 'bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-400',
@@ -129,6 +133,14 @@ export const CreatorRow = ({ creator, isExpanded, onToggleExpand }: CreatorRowPr
         </td>
         <td className="px-6 py-4">
           <div className="flex items-center justify-center gap-2">
+            <Button
+              size="sm"
+              variant="default"
+              onClick={() => router.push(`/creators/${creator._id}`)}
+              title="View Creator Details"
+            >
+              <Eye className="w-4 h-4" />
+            </Button>
             <Button
               size="sm"
               variant="outline"

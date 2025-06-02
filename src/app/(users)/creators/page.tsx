@@ -6,7 +6,7 @@ import { SearchAndQuickFilters } from '@/components/pages/creators/SearchAndQuic
 import { AdvancedFilters } from '@/components/pages/creators/AdvancedFilters'
 import { CreatorsTable } from '@/components/pages/creators/CreatorsTable'
 import { LoadingState, ErrorState } from '@/components/pages/creators/LoadingAndErrorStates'
-import { useCreatorsData } from '@/components/pages/creators/useCreatorsData'
+import { useCreatorsData } from '@/hooks/useCreatorsData'
 
 const CreatorsPage = () => {
   const [showFilters, setShowFilters] = useState(false);

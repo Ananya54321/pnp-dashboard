@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { toast } from 'sonner';
-import { Creator, ApiResponse, FilterState } from './types';
+import { Creator, ApiResponse, FilterState } from '../components/pages/creators/types';
 
 export const useCreatorsData = () => {
   const [data, setData] = useState<ApiResponse | null>(null);
