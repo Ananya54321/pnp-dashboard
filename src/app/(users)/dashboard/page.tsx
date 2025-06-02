@@ -376,72 +376,99 @@ const Page = () => {
             </CardContent>
           </Card>
 
-          {/* Newsletter Feed */}
-          <Card className="border-gray-200 dark:border-gray-700">
-            <CardHeader>
-              <div className="flex items-center justify-between">
-                <div>
-                  <CardTitle className="flex items-center text-gray-900 dark:text-white">
-                    <BookOpen className="w-5 h-5 mr-2 text-green-600" />
-                    {currentUser.niche} Newsletters
-                  </CardTitle>
-                  <CardDescription className="text-gray-600 dark:text-gray-400">
-                    Latest newsletters from your niche
-                  </CardDescription>
-                </div>
-                <div className="relative">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
-                  <Input
-                    placeholder="Search newsletters..."
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    className="pl-10 w-48"
-                  />
-                </div>
+        </div>
+
+        {/* Newsletter Feed */}
+        <Card className="border-gray-200 dark:border-gray-700">
+          <CardHeader>
+            <div className="flex items-center justify-between">
+              <div>
+                <CardTitle className="flex items-center text-gray-900 dark:text-white">
+                  <BookOpen className="w-5 h-5 mr-2 text-green-600" />
+                  Latest {currentUser.niche} Newsletters
+                </CardTitle>
+                <CardDescription className="text-gray-600 dark:text-gray-400">
+                  Latest newsletters from your niche
+                </CardDescription>
               </div>
-            </CardHeader>
-            <CardContent className="space-y-4">
+              <div className="relative">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                <Input
+                  placeholder="Search newsletters..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="pl-10 w-48"
+                />
+              </div>
+            </div>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {nicheNewsletters.map((newsletter) => (
                 <div key={newsletter.id} className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors cursor-pointer">
-                  <div className="flex items-start justify-between">
-                    <div className="flex-1">
-                      <div className="flex items-center space-x-2 mb-2">
-                        <Badge 
-                          variant={newsletter.category === 'Featured' ? 'default' : 'secondary'}
-                          className="text-xs"
-                        >
-                          {newsletter.category}
-                        </Badge>
-                        <span className="text-xs text-gray-500 dark:text-gray-400">{newsletter.readTime}</span>
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="flex items-center space-x-3">
+                      <div className="w-12 h-12 bg-green-100 dark:bg-green-900 rounded-lg flex items-center justify-center">
+                        <BookOpen className="w-6 h-6 text-green-600 dark:text-green-400" />
                       </div>
-                      <h4 className="font-medium text-gray-900 dark:text-white mb-1">{newsletter.title}</h4>
-                      <p className="text-sm text-gray-600 dark:text-gray-400">
-                        by {newsletter.creatorName} • {newsletter.publishedAt}
-                      </p>
-                      <p className="text-xs text-gray-500 dark:text-gray-500 mb-2">
-                        {newsletter.brandName}
-                      </p>
-                      <div className="flex items-center space-x-4">
+                      <div>
                         <div className="flex items-center space-x-1">
-                          <Users className="w-3 h-3 text-gray-400" />
-                          <span className="text-xs text-gray-500 dark:text-gray-400">
-                            {newsletter.subscriberCount.toLocaleString()} subscribers
-                          </span>
+                          <h4 className="font-medium text-gray-900 dark:text-white">{newsletter.creatorName}</h4>
+                          {newsletter.category === 'Featured' && (
+                            <Star className="w-4 h-4 text-yellow-500 fill-current" />
+                          )}
                         </div>
-                        <Badge variant="outline" className="text-xs">
-                          {newsletter.niche}
-                        </Badge>
+                        <p className="text-sm text-gray-600 dark:text-gray-400">{newsletter.brandName}</p>
                       </div>
                     </div>
-                    <Button variant="ghost" size="sm">
-                      <BookOpen className="w-4 h-4" />
+                    <Badge 
+                      variant={newsletter.category === 'Featured' ? 'default' : 'secondary'}
+                      className="text-xs"
+                    >
+                      {newsletter.category}
+                    </Badge>
+                  </div>
+                  
+                  <div className="mb-4">
+                    <h3 className="font-medium text-gray-900 dark:text-white mb-2 line-clamp-2 leading-tight">
+                      {newsletter.title}
+                    </h3>
+                  </div>
+                  
+                  <div className="space-y-2 mb-4">
+                    <div className="flex items-center justify-between text-sm">
+                      <span className="text-gray-600 dark:text-gray-400">Subscribers</span>
+                      <span className="font-medium text-gray-900 dark:text-white">{newsletter.subscriberCount.toLocaleString()}</span>
+                    </div>
+                    <div className="flex items-center justify-between text-sm">
+                      <span className="text-gray-600 dark:text-gray-400">Read Time</span>
+                      <span className="font-medium text-gray-900 dark:text-white">{newsletter.readTime}</span>
+                    </div>
+                    <div className="flex items-center justify-between text-sm">
+                      <span className="text-gray-600 dark:text-gray-400">Niche</span>
+                      <Badge variant="outline" className="text-xs">{newsletter.niche}</Badge>
+                    </div>
+                    <div className="flex items-center justify-between text-sm">
+                      <span className="text-gray-600 dark:text-gray-400">Published</span>
+                      <span className="text-xs text-green-600 dark:text-green-400">{newsletter.publishedAt}</span>
+                    </div>
+                  </div>
+                  
+                  <div className="flex space-x-2">
+                    <Button size="sm" variant="outline" className="flex-1">
+                      <BookOpen className="w-4 h-4 mr-1" />
+                      Read
+                    </Button>
+                    <Button size="sm" className="flex-1">
+                      <Heart className="w-4 h-4 mr-1" />
+                      Save
                     </Button>
                   </div>
                 </div>
               ))}
-            </CardContent>
-          </Card>
-        </div>
+            </div>
+          </CardContent>
+        </Card>
 
         {/* Popular Creators Section */}
         <Card className="border-gray-200 dark:border-gray-700">

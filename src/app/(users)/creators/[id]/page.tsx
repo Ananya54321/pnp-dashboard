@@ -18,10 +18,14 @@ import {
   Clock,
   FileText,
   Star,
-  Shield
+  Shield,
+  Target,
+  Filter,
+  UserPlus
 } from 'lucide-react'
 import { toast } from 'sonner'
 import { CreatorDetail, CreatorDetailResponse } from '@/types/creators'
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 
 const CreatorDetailsPage = () => {
   const params = useParams()
@@ -31,6 +35,49 @@ const CreatorDetailsPage = () => {
   const [creator, setCreator] = useState<CreatorDetail | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+
+  // Mock data for recommended creators similar to dashboard
+  const recommendedCreators = [
+    {
+      id: '1',
+      creatorName: 'Sarah Chen',
+      brandName: 'AI Weekly Digest',
+      avatar: 'https://images.unsplash.com/photo-1494790108755-2616b9d76d92?w=100&h=100&fit=crop&crop=face',
+      subscriberCount: 4800,
+      niche: 'Tech & AI',
+      openRate: 45.2,
+      userLink: 'https://aiweeklydigest.com',
+      discordUsername: 'sarah_ai#5678',
+      frequency: 'weekly',
+      isOnline: true
+    },
+    {
+      id: '2',
+      creatorName: 'Marcus Rivera',
+      brandName: 'Founder\'s Edge',
+      avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face',
+      subscriberCount: 5500,
+      niche: 'Startup Insights',
+      openRate: 38.7,
+      userLink: 'https://foundersedge.co',
+      discordUsername: 'marcus_startup#9012',
+      frequency: 'bi-weekly',
+      isOnline: false
+    },
+    {
+      id: '3',
+      creatorName: 'Elena Rodriguez',
+      brandName: 'Design Weekly',
+      avatar: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&crop=face',
+      subscriberCount: 6200,
+      niche: 'Design & UX',
+      openRate: 52.1,
+      userLink: 'https://designweekly.co',
+      discordUsername: 'elena_design#3456',
+      frequency: 'weekly',
+      isOnline: true
+    }
+  ]
 
   useEffect(() => {
     const fetchCreator = async () => {
@@ -386,6 +433,75 @@ const CreatorDetailsPage = () => {
                       </div>
                     </div>
                   </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Recommended Creators Section */}
+            <Card className="border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 shadow-sm">
+              <CardHeader>
+                <div className="flex items-center justify-between">
+                  <div>
+                    <CardTitle className="flex items-center gap-2 text-gray-900 dark:text-white">
+                      <Target className="w-5 h-5 text-blue-600" />
+                      Recommended Creators
+                    </CardTitle>
+                    <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                      Similar creators you might want to connect with
+                    </p>
+                  </div>
+                  <Button variant="outline" size="sm">
+                    <Filter className="w-4 h-4 mr-2" />
+                    Filter
+                  </Button>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {recommendedCreators.map((recommendedCreator) => (
+                    <div key={recommendedCreator.id} className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors border border-gray-200 dark:border-gray-700">
+                      <div className="flex flex-col space-y-3">
+                        <div className="flex items-center space-x-3">
+                          <div className="relative flex-shrink-0">
+                            <Avatar className="w-12 h-12">
+                              <AvatarImage src={recommendedCreator.avatar} alt={recommendedCreator.creatorName} />
+                              <AvatarFallback>{recommendedCreator.creatorName.split(' ').map(n => n[0]).join('')}</AvatarFallback>
+                            </Avatar>
+                            {recommendedCreator.isOnline && (
+                              <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 border-2 border-white dark:border-gray-800 rounded-full"></div>
+                            )}
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <h4 className="font-medium text-gray-900 dark:text-white truncate">{recommendedCreator.creatorName}</h4>
+                            <p className="text-sm text-gray-600 dark:text-gray-400 truncate">{recommendedCreator.brandName}</p>
+                          </div>
+                        </div>
+                        
+                        <div className="flex flex-wrap gap-1">
+                          <Badge variant="outline" className="text-xs">
+                            {recommendedCreator.subscriberCount.toLocaleString()} subs
+                          </Badge>
+                          <Badge variant="outline" className="text-xs">
+                            {recommendedCreator.openRate}% open rate
+                          </Badge>
+                          <Badge variant="outline" className="text-xs capitalize">
+                            {recommendedCreator.frequency}
+                          </Badge>
+                        </div>
+                        
+                        <div className="flex space-x-2">
+                          <Button size="sm" variant="outline" className="flex-1">
+                            <MessageSquare className="w-4 h-4 mr-1" />
+                            Chat
+                          </Button>
+                          <Button size="sm" className="flex-1">
+                            <UserPlus className="w-4 h-4 mr-1" />
+                            Connect
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </CardContent>
             </Card>
