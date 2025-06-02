@@ -136,7 +136,7 @@ const CreatorDetailsPage = () => {
   const performanceLevel = getPerformanceLevel(creator.openRate)
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-950 p-4">
+    <div className="min-h-screen dark:bg-gray-950 p-4">
       <div className="max-w-7xl mx-auto">
         
         {/* Header */}
@@ -178,84 +178,42 @@ const CreatorDetailsPage = () => {
                       {creator.niche}
                     </Badge>
                   </div>
-                  <Badge className={getFrequencyColor(creator.frequency)}>
-                    <Clock className="w-3 h-3 mr-1" />
-                    {creator.frequency}
-                  </Badge>
+                  
+                  {/* Ad Copy Section */}
+                  <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+                    <div className="flex items-center gap-2 mb-2">
+                      <FileText className="w-4 h-4 text-gray-400" />
+                      <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Ad Copy</p>
+                    </div>
+                    <div className="text-left bg-gray-50 dark:bg-gray-800 rounded-lg p-3 border border-gray-200 dark:border-gray-600">
+                      <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed whitespace-pre-wrap">
+                        {creator.adCopy}
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </CardContent>
             </Card>
 
-            {/* Quick Stats */}
+            {/* Member Since Card */}
             <Card className="border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 shadow-sm">
-              <CardHeader className="pb-3">
-                <CardTitle className="text-lg text-gray-900 dark:text-white">Quick Stats</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <Users className="w-4 h-4 text-blue-600" />
-                    <span className="text-sm text-gray-600 dark:text-gray-400">Subscribers</span>
-                  </div>
-                  <span className="font-semibold text-gray-900 dark:text-white">
-                    {creator.subscriberCount.toLocaleString()}
-                  </span>
+              <CardContent className="p-4">
+                <div className="flex items-center gap-2 mb-2">
+                  <Calendar className="w-4 h-4 text-gray-400" />
+                  <h3 className="text-sm font-medium text-gray-600 dark:text-gray-400">Member Since</h3>
                 </div>
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <TrendingUp className="w-4 h-4 text-green-600" />
-                    <span className="text-sm text-gray-600 dark:text-gray-400">Open Rate</span>
-                  </div>
-                  <span className={`font-semibold ${performanceLevel.color}`}>
-                    {creator.openRate}%
-                  </span>
-                </div>
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <Star className="w-4 h-4 text-yellow-600" />
-                    <span className="text-sm text-gray-600 dark:text-gray-400">Performance</span>
-                  </div>
-                  <span className={`text-sm font-medium ${performanceLevel.color}`}>
-                    {performanceLevel.level}
-                  </span>
-                </div>
+                <p className="text-lg font-bold text-gray-900 dark:text-white mb-1">
+                  {formatDate(creator.createdAt)}
+                </p>
+                <p className="text-xs text-gray-500 dark:text-gray-400">
+                  Last updated: {formatDate(creator.updatedAt)}
+                </p>
               </CardContent>
             </Card>
 
-            {/* Quick Actions */}
-            <Card className="border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 shadow-sm">
-              <CardHeader className="pb-3">
-                <CardTitle className="text-lg text-gray-900 dark:text-white">Quick Actions</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-3">
-                <Button 
-                  size="sm"
-                  className="w-full justify-start"
-                  onClick={() => window.open(`mailto:${creator.email}`, '_blank')}
-                >
-                  <Mail className="w-4 h-4 mr-2" />
-                  Send Email
-                </Button>
-                <Button 
-                  variant="outline" 
-                  size="sm"
-                  className="w-full justify-start"
-                  onClick={() => window.open(creator.userLink, '_blank')}
-                >
-                  <ExternalLink className="w-4 h-4 mr-2" />
-                  Visit Website
-                </Button>
-                <Button 
-                  variant="outline" 
-                  size="sm"
-                  className="w-full justify-start"
-                  onClick={() => copyToClipboard(creator.discordUsername, 'Discord username')}
-                >
-                  <MessageSquare className="w-4 h-4 mr-2" />
-                  Contact on Discord
-                </Button>
-              </CardContent>
-            </Card>
+           
+
+          
           </div>
 
           {/* Main Content Area */}
@@ -314,6 +272,34 @@ const CreatorDetailsPage = () => {
                 </CardContent>
               </Card>
             </div>
+            
+            {/* Special Instructions (if exists) */}
+            {creator.specialInstructions && (
+              <Card className="border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 shadow-sm">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2 text-gray-900 dark:text-white">
+                    <Shield className="w-5 h-5" />
+                    Special Instructions
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="p-4 bg-yellow-50 dark:bg-yellow-900/10 rounded-lg border border-yellow-200 dark:border-yellow-800">
+                    <p className="text-gray-700 dark:text-gray-300 leading-relaxed whitespace-pre-wrap">
+                      {creator.specialInstructions}
+                    </p>
+                  </div>
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    className="mt-3"
+                    onClick={() => copyToClipboard(creator.specialInstructions, 'Special instructions')}
+                  >
+                    <Copy className="w-4 h-4 mr-2" />
+                    Copy Instructions
+                  </Button>
+                </CardContent>
+              </Card>
+            )}
 
             {/* Contact Information Grid */}
             <Card className="border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 shadow-sm">
@@ -399,78 +385,12 @@ const CreatorDetailsPage = () => {
                         </div>
                       </div>
                     </div>
-
-                    <div className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
-                      <div className="flex items-center gap-3 mb-2">
-                        <Calendar className="w-5 h-5 text-gray-400" />
-                        <p className="text-sm text-gray-500 dark:text-gray-400">Member Since</p>
-                      </div>
-                      <p className="font-medium text-gray-900 dark:text-white">
-                        {formatDate(creator.createdAt)}
-                      </p>
-                      <p className="text-xs text-gray-400 mt-1">
-                        Last updated: {formatDate(creator.updatedAt)}
-                      </p>
-                    </div>
                   </div>
                 </div>
               </CardContent>
             </Card>
 
-            {/* Content Grid */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <Card className="border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 shadow-sm">
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2 text-gray-900 dark:text-white">
-                    <FileText className="w-5 h-5" />
-                    Ad Copy
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-600">
-                    <p className="text-gray-700 dark:text-gray-300 leading-relaxed whitespace-pre-wrap">
-                      {creator.adCopy}
-                    </p>
-                  </div>
-                  <Button
-                    size="sm"
-                    variant="outline"
-                    className="mt-3"
-                    onClick={() => copyToClipboard(creator.adCopy, 'Ad copy')}
-                  >
-                    <Copy className="w-4 h-4 mr-2" />
-                    Copy Ad Copy
-                  </Button>
-                </CardContent>
-              </Card>
-
-              {creator.specialInstructions && (
-                <Card className="border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 shadow-sm">
-                  <CardHeader>
-                    <CardTitle className="flex items-center gap-2 text-gray-900 dark:text-white">
-                      <Shield className="w-5 h-5" />
-                      Special Instructions
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="p-4 bg-yellow-50 dark:bg-yellow-900/10 rounded-lg border border-yellow-200 dark:border-yellow-800">
-                      <p className="text-gray-700 dark:text-gray-300 leading-relaxed whitespace-pre-wrap">
-                        {creator.specialInstructions}
-                      </p>
-                    </div>
-                    <Button
-                      size="sm"
-                      variant="outline"
-                      className="mt-3"
-                      onClick={() => copyToClipboard(creator.specialInstructions, 'Special instructions')}
-                    >
-                      <Copy className="w-4 h-4 mr-2" />
-                      Copy Instructions
-                    </Button>
-                  </CardContent>
-                </Card>
-              )}
-            </div>
+           
           </div>
         </div>
       </div>
