@@ -2,6 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { ToggleTheme } from "./toogle-theme";
 import { useTheme } from "next-themes";
@@ -11,10 +12,10 @@ export const Navbar = () => {
   const pathname = usePathname();
   const isDarkMode = theme === "dark";
 
-  // Only show navbar on landing page
-  if (pathname !== "/" && !pathname.startsWith("/auth")) {
-    return null;
-  }
+  // // Only show navbar on landing page
+  // if (pathname !== "/" && !pathname.startsWith("/auth")) {
+  //   return null;
+  // }
 
   const bgColor = isDarkMode ? "bg-black" : "bg-white";
   const textColor = isDarkMode ? "text-neutral-content" : "text-neutral-900";
@@ -26,9 +27,15 @@ export const Navbar = () => {
     >
       <Link
         href="/"
-        className="font-bold text-lg flex items-center ml-2 hover:opacity-80 transition"
+        className="font-bold text-lg flex items-center ml-2 hover:opacity-80 transition space-x-2"
       >
-        {/* <Image src={logo} alt="logo" width={100} height={32} /> */}
+        <Image 
+          src="/pnp-logo.png" 
+          alt="PickandPartner Logo" 
+          width={32} 
+          height={32}
+          className="object-contain" 
+        />
         <p>PickandPartner</p>
       </Link>
 

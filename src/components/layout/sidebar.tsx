@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import { ToggleTheme } from "./toogle-theme";
 import { useTheme } from "next-themes";
 import {
@@ -89,13 +90,13 @@ function Sidebar() {
   return (
     <>
       <div
-        className="sidebar h-[100%] ml-2 z-10 fixed flex flex-col justify-center"
+        className="sidebar h-[100%]  z-10 fixed"
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
         style={{ willChange: 'transform' }}
       >
         {/* Invisible hover area for desktop - made wider for easier interaction */}
-        <div className="hidden md:block fixed left-0 top-0 w-8 h-full bg-transparent z-10" />
+        <div className="hidden md:block fixed left-0 top-1/2 w-8 h-[50%] bg-transparent z-10" />
 
         <div
           className={`
@@ -105,7 +106,7 @@ function Sidebar() {
                 ? "bg-gray-900 border-gray-700" 
                 : "bg-white border-gray-200"
             } border text-current p-2 w-full md:w-[75px]
-            fixed bottom-0 left-0 md:relative md:bottom-auto md:top-0 md:pl-4 md:h-[90vh]
+            fixed bottom-0 left-0 md:fixed md:top-1/2 md:transform md:-translate-y-1/2 md:h-[70vh]
             md:transition-all md:duration-700 md:ease-[cubic-bezier(0.23,1,0.32,1)]
             ${isVisible ? "md:translate-x-0 md:w-[200px]" : "md:translate-x-[-80%]"}
             overflow-hidden transform-gpu backface-visibility-hidden
@@ -116,25 +117,6 @@ function Sidebar() {
             perspective: '1000px'
           }}
         >
-          {/* Logo/Brand */}
-          <div className="hidden md:block mb-4 mt-2">
-            <Link
-              href="/dashboard"
-              className="font-bold text-sm flex items-center"
-            >
-              <span 
-                className={`text-blue-800 dark:text-blue-200 transition-all duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] transform-gpu ${
-                  isVisible ? "opacity-100 translate-x-0 scale-100" : "opacity-0 translate-x-[-15px] scale-95"
-                }`}
-                style={{ 
-                  transitionDelay: isVisible ? '200ms' : '0ms',
-                  willChange: 'transform, opacity'
-                }}
-              >
-                PickandPartner
-              </span>
-            </Link>
-          </div>
 
           {/* Navigation Items */}
           {navItems.map((item, index) => {
