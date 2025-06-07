@@ -2,12 +2,19 @@
 
 import React from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { ToggleTheme } from "./toogle-theme";
 import { useTheme } from "next-themes";
 
 export const Navbar = () => {
   const { theme } = useTheme();
+  const pathname = usePathname();
   const isDarkMode = theme === "dark";
+
+  // Only show navbar on landing page
+  if (pathname !== "/" && !pathname.startsWith("/auth")) {
+    return null;
+  }
 
   const bgColor = isDarkMode ? "bg-black" : "bg-white";
   const textColor = isDarkMode ? "text-neutral-content" : "text-neutral-900";

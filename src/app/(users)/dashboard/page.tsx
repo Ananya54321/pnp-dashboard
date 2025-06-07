@@ -22,42 +22,154 @@ import {
   Sparkles
 } from 'lucide-react'
 
+const currentUser = {
+  id: 'current-user',
+  creatorName: 'Alex Thompson',
+  brandName: 'TechCrunch Weekly',
+  email: 'alex@newsletter.com',
+  avatar: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&h=100&fit=crop&crop=face',
+  subscriberCount: 5200,
+  niche: 'Tech & Startups',
+  openRate: 42.3,
+  userLink: 'https://techcrunchweekly.com',
+  adCopy: 'Get the latest tech insights and startup news delivered to your inbox every week. Join 5,000+ professionals staying ahead of the curve.',
+  discordUsername: 'alex_tech#1234',
+  frequency: 'weekly',
+  specialInstructions: 'Prefer tech and AI-focused collaborations. Available for cross-promotions and sponsored content.',
+  joinedDate: '2024-01-15'
+}
 
+// Mock data for recommendations
+const nearbyCreators = [
+  {
+    id: '1',
+    creatorName: 'Sarah Chen',
+    brandName: 'AI Weekly Digest',
+    avatar: 'https://images.unsplash.com/photo-1494790108755-2616b9d76d92?w=100&h=100&fit=crop&crop=face',
+    subscriberCount: 4800,
+    niche: 'Tech & AI',
+    openRate: 45.2,
+    userLink: 'https://aiweeklydigest.com',
+    discordUsername: 'sarah_ai#5678',
+    frequency: 'weekly',
+    isOnline: true
+  },
+  {
+    id: '2',
+    creatorName: 'Marcus Rivera',
+    brandName: 'Founder\'s Edge',
+    avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face',
+    subscriberCount: 5500,
+    niche: 'Startup Insights',
+    openRate: 38.7,
+    userLink: 'https://foundersedge.co',
+    discordUsername: 'marcus_startup#9012',
+    frequency: 'bi-weekly',
+    isOnline: false
+  },
+  {
+    id: '3',
+    creatorName: 'Emma Johnson',
+    brandName: 'Future Forward',
+    avatar: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&crop=face',
+    subscriberCount: 4900,
+    niche: 'Tech Trends',
+    openRate: 52.1,
+    userLink: 'https://futureforward.tech',
+    discordUsername: 'emma_tech#3456',
+    frequency: 'weekly',
+    isOnline: true
+  }
+]
+
+const nicheNewsletters = [
+  {
+    id: '1',
+    title: 'The Rise of AI in Fintech',
+    creatorName: 'David Kim',
+    brandName: 'FinTech AI Weekly',
+    publishedAt: '2 hours ago',
+    readTime: '5 min read',
+    subscriberCount: 12500,
+    category: 'Featured',
+    niche: 'Tech & AI'
+  },
+  {
+    id: '2',
+    title: 'Startup Funding Trends Q4 2024',
+    creatorName: 'Lisa Rodriguez',
+    brandName: 'Startup Insider',
+    publishedAt: '1 day ago',
+    readTime: '8 min read',
+    subscriberCount: 8900,
+    category: 'Trending',
+    niche: 'Startup Insights'
+  },
+  {
+    id: '3',
+    title: 'Remote Work Tools Revolution',
+    creatorName: 'James Wilson',
+    brandName: 'Work Future',
+    publishedAt: '3 days ago',
+    readTime: '6 min read',
+    subscriberCount: 6700,
+    category: 'Popular',
+    niche: 'Tech Trends'
+  }
+]
+
+const popularCreators = [
+  {
+    id: '1',
+    creatorName: 'Ryan Peterson',
+    brandName: 'Strategy Sunday',
+    avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face',
+    subscriberCount: 45000,
+    niche: 'Business Strategy',
+    openRate: 58.3,
+    userLink: 'https://strategysunday.com',
+    discordUsername: 'ryan_strategy#7890',
+    frequency: 'weekly',
+    isVerified: true,
+    lastActive: 'Active now'
+  },
+  {
+    id: '2',
+    creatorName: 'Priya Patel',
+    brandName: 'Product Insights',
+    avatar: 'https://images.unsplash.com/photo-1489424731084-a5d8b219a5bb?w=100&h=100&fit=crop&crop=face',
+    subscriberCount: 38500,
+    niche: 'Product Management',
+    openRate: 61.2,
+    userLink: 'https://productinsights.co',
+    discordUsername: 'priya_pm#2468',
+    frequency: 'bi-weekly',
+    isVerified: true,
+    lastActive: '2 hours ago'
+  },
+  {
+    id: '3',
+    creatorName: 'Michael Chang',
+    brandName: 'CTO Chronicles',
+    avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop&crop=face',
+    subscriberCount: 52000,
+    niche: 'Tech Leadership',
+    openRate: 55.7,
+    userLink: 'https://ctochronicles.dev',
+    discordUsername: 'michael_cto#1357',
+    frequency: 'weekly',
+    isVerified: true,
+    lastActive: '1 hour ago'
+  }
+]
 
 const Page = () => {
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-black p-6">
+    <div className="min-h-screen  dark:bg-black p-6">
       <div className="max-w-7xl mx-auto space-y-8">
         
-        {/* Welcome Header */}
-        <div className="bg-white dark:bg-black rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-4">
-              <Avatar className="w-16 h-16 ring-2 ring-blue-500 ring-offset-2 dark:ring-offset-gray-800">
-                <AvatarImage src={currentUser.avatar} alt={currentUser.creatorName} />
-                <AvatarFallback>{currentUser.creatorName.split(' ').map(n => n[0]).join('')}</AvatarFallback>
-              </Avatar>
-              <div>
-                <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
-                  Welcome back, {currentUser.creatorName}! 👋
-                </h1>
-                <p className="text-gray-600 dark:text-gray-400">
-                  {currentUser.brandName} • {currentUser.subscriberCount.toLocaleString()} subscribers
-                </p>
-                <p className="text-sm text-gray-500 dark:text-gray-500 mt-1">
-                  {currentUser.niche} • {currentUser.frequency} newsletter
-                </p>
-              </div>
-            </div>
-            <div className="flex items-center space-x-2">
-              <Badge variant="secondary" className="bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300">
-                <Sparkles className="w-3 h-3 mr-1" />
-                Pro Creator
-              </Badge>
-            </div>
-          </div>
-        </div>
+       
 
         {/* Quick Stats */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">

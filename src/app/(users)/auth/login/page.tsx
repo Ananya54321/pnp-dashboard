@@ -65,7 +65,7 @@ const LoginPage = () => {
   const isFormValid = formData.email && formData.password
 
   return (
-    <div className="h-screen bg-gray-50 dark:bg-black flex items-center justify-center p-4">
+    <div className="h-screen bg-white dark:bg-black flex items-center justify-center p-4">
       <div className="w-full max-w-md space-y-6">
         
         {/* Header */}

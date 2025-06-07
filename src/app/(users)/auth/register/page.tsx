@@ -428,7 +428,7 @@ const RegisterPage = () => {
   )
 
   return (
-    <div className="mt-6 bg-gray-50 dark:bg-black flex items-center justify-center p-4">
+    <div className="mt-6 bg-white dark:bg-black flex items-center justify-center p-4">
       <div className="w-full max-w-2xl space-y-6">
         
         {/* Header */}
