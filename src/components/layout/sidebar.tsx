@@ -96,7 +96,7 @@ function Sidebar() {
         style={{ willChange: 'transform' }}
       >
         {/* Invisible hover area for desktop - made wider for easier interaction */}
-        <div className="hidden md:block fixed left-0 top-1/2 w-8 h-[50%] bg-transparent z-10" />
+        <div className="hidden md:block fixed left-0 top-1/2 transform -translate-y-1/2 w-16 h-[80%] bg-transparent z-10" />
 
         <div
           className={`
@@ -169,17 +169,7 @@ function Sidebar() {
 
           {/* Theme Toggle */}
           <div className="hidden md:block mt-auto mb-4">
-            <div 
-              className={`flex items-center justify-center transition-all duration-600 ease-[cubic-bezier(0.23,1,0.32,1)] transform-gpu ${
-                isVisible ? "px-4 opacity-100 translate-y-0" : "opacity-70 translate-y-1"
-              }`}
-              style={{ 
-                transitionDelay: isVisible ? '300ms' : '0ms',
-                willChange: 'transform, opacity'
-              }}
-            >
-              <ToggleTheme />
-            </div>
+            
           </div>
         </div>
       </div>
