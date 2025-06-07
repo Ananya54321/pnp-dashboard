@@ -88,7 +88,7 @@ export const PopularCreators: React.FC<PopularCreatorsProps> = ({ creators }) =>
                 </Button>
                 <Button size="sm" className="flex-1">
                   <Heart className="w-4 h-4 mr-1" />
-                  Follow
+                  Partner
                 </Button>
               </div>
             </div>

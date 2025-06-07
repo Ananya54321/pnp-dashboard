@@ -19,7 +19,8 @@ import {
   Calendar,
   Target,
   Award,
-  Sparkles
+  Sparkles,
+  FileText
 } from 'lucide-react'
 
 const currentUser = {
@@ -203,84 +204,41 @@ const Page = () => {
 
           <Card className="border-gray-200 dark:border-gray-700">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium text-gray-600 dark:text-gray-400">Frequency</CardTitle>
+              <CardTitle className="text-sm font-medium text-gray-600 dark:text-gray-400">Click Through Rate (CTR)</CardTitle>
               <Calendar className="h-4 w-4 text-purple-600" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-gray-900 dark:text-white capitalize">{currentUser.frequency}</div>
+              <div className="text-2xl font-bold text-gray-900 dark:text-white capitalize">67%</div>
               <p className="text-xs text-gray-500 dark:text-gray-400">
-                Newsletter schedule
+                Newsletter engagement
               </p>
             </CardContent>
           </Card>
 
-          <Card className="border-gray-200 dark:border-gray-700">
+          <Card className="border-gray-200 dark:border-gray-700 hover:shadow-lg transition-all duration-300 cursor-pointer group">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium text-gray-600 dark:text-gray-400">Discord</CardTitle>
-              <MessageCircle className="h-4 w-4 text-indigo-600" />
+              <CardTitle className="text-sm font-medium text-gray-600 dark:text-gray-400">Newsletter Analysis</CardTitle>
+              <FileText className="h-4 w-4 text-blue-600 group-hover:scale-110 transition-transform duration-200" />
             </CardHeader>
             <CardContent>
-              <div className="text-lg font-bold text-gray-900 dark:text-white">{currentUser.discordUsername}</div>
-              <p className="text-xs text-green-600 dark:text-green-400">
-                <span className="inline-block w-2 h-2 bg-green-500 rounded-full mr-1"></span>
-                Connected
-              </p>
+              <a 
+                href="https://evaluateyournl.com" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="block"
+              >
+                <div className="text-2xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-200">
+                  Evaluate your newsletter →
+                </div>
+                
+              </a>
             </CardContent>
           </Card>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           
-          {/* Creator Profile Summary */}
-          <Card className="border-gray-200 dark:border-gray-700">
-            <CardHeader>
-              <CardTitle className="flex items-center text-gray-900 dark:text-white">
-                <Star className="w-5 h-5 mr-2 text-yellow-600" />
-                Your Creator Profile
-              </CardTitle>
-              <CardDescription className="text-gray-600 dark:text-gray-400">
-                Your public profile information for collaborations
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
-                <h4 className="font-medium text-gray-900 dark:text-white mb-2">Ad Copy</h4>
-                <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
-                  {currentUser.adCopy}
-                </p>
-              </div>
-              
-              {currentUser.specialInstructions && (
-                <div className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
-                  <h4 className="font-medium text-gray-900 dark:text-white mb-2">Special Instructions</h4>
-                  <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
-                    {currentUser.specialInstructions}
-                  </p>
-                </div>
-              )}
-              
-              <div className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
-                <h4 className="font-medium text-gray-900 dark:text-white mb-2">Newsletter Link</h4>
-                <a 
-                  href={currentUser.userLink} 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="text-sm text-blue-600 dark:text-blue-400 hover:underline"
-                >
-                  {currentUser.userLink}
-                </a>
-              </div>
-              
-              <div className="flex space-x-2">
-                <Button size="sm" className="flex-1">
-                  Edit Profile
-                </Button>
-                <Button size="sm" variant="outline" className="flex-1">
-                  Preview Public Profile
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
+          
           
           {/* Creator Recommendations */}
           <Card className="border-gray-200 dark:border-gray-700">
@@ -337,7 +295,7 @@ const Page = () => {
                     </Button>
                     <Button size="sm" className="px-3 py-1 text-xs">
                       <UserPlus className="w-3 h-3 mr-1" />
-                      Connect
+                      Partner
                     </Button>
                   </div>
                 </div>
@@ -345,98 +303,66 @@ const Page = () => {
             </CardContent>
           </Card>
 
-        </div>
-
-        {/* Newsletter Feed */}
-        <Card className="border-gray-200 dark:border-gray-700">
-          <CardHeader>
-            <div className="flex items-center justify-between">
-              <div>
-                <CardTitle className="flex items-center text-gray-900 dark:text-white">
-                  <BookOpen className="w-5 h-5 mr-2 text-green-600" />
-                  Latest {currentUser.niche} Newsletters
-                </CardTitle>
-                <CardDescription className="text-gray-600 dark:text-gray-400">
-                  Latest newsletters from your niche
-                </CardDescription>
+          {/* Creator Leaderboard */}
+          <Card className="border-gray-200 dark:border-gray-700">
+            <CardHeader>
+              <div className="flex items-center justify-between">
+                <div>
+                  <CardTitle className="flex items-center text-gray-900 dark:text-white">
+                    <BarChart3 className="w-5 h-5 mr-2 text-yellow-600" />
+                    Performance Leaderboard
+                  </CardTitle>
+                  <CardDescription className="text-gray-600 dark:text-gray-400">
+                    Leading creators by engagement metrics
+                  </CardDescription>
+                </div>
+                <Button 
+                  variant="outline" 
+                  size="sm"
+                  onClick={() => window.location.href = '/creators'}
+                >
+                  View All
+                </Button>
               </div>
-              <Button 
-                variant="outline" 
-                onClick={() => window.location.href = '/creators'}
-                className="flex items-center space-x-2"
-              >
-                <Users className="w-4 h-4" />
-                <span>View All Newsletters</span>
-              </Button>
-            </div>
-          </CardHeader>
-          <CardContent>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {nicheNewsletters.map((newsletter) => (
-                <div key={newsletter.id} className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors cursor-pointer">
-                  <div className="flex items-center justify-between mb-4">
-                    <div className="flex items-center space-x-3">
-                      <div className="w-12 h-12 bg-green-100 dark:bg-green-900 rounded-lg flex items-center justify-center">
-                        <BookOpen className="w-6 h-6 text-green-600 dark:text-green-400" />
-                      </div>
-                      <div>
-                        <div className="flex items-center space-x-1">
-                          <h4 className="font-medium text-gray-900 dark:text-white">{newsletter.creatorName}</h4>
-                          {newsletter.category === 'Featured' && (
-                            <Star className="w-4 h-4 text-yellow-500 fill-current" />
-                          )}
-                        </div>
-                        <p className="text-sm text-gray-600 dark:text-gray-400">{newsletter.brandName}</p>
+            </CardHeader>
+            <CardContent className="space-y-3">
+              {popularCreators.slice(0, 5).map((creator, index) => (
+                <div key={creator.id} className="flex items-center justify-between p-3 bg-gray-100 dark:bg-gray-800 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                  <div className="flex items-center space-x-3 flex-1">
+                    <div className="flex items-center justify-center w-8 h-8 rounded-full bg-white text-black dark:bg-gray-600 dark:text-white text-sm font-bold">
+                      {index + 1}
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <Avatar className="w-8 h-8">
+                        <AvatarImage src={creator.avatar} alt={creator.creatorName} />
+                        <AvatarFallback className="text-xs">{creator.creatorName.split(' ').map(n => n[0]).join('')}</AvatarFallback>
+                      </Avatar>
+                      <div className="min-w-0">
+                        <h4 className="font-medium text-gray-900 dark:text-white text-sm truncate">{creator.creatorName}</h4>
+                        <p className="text-xs text-gray-600 dark:text-gray-400 truncate">{creator.brandName}</p>
                       </div>
                     </div>
-                    <Badge 
-                      variant={newsletter.category === 'Featured' ? 'default' : 'secondary'}
-                      className="text-xs"
-                    >
-                      {newsletter.category}
-                    </Badge>
                   </div>
-                  
-                  <div className="mb-4">
-                    <h3 className="font-medium text-gray-900 dark:text-white mb-2 line-clamp-2 leading-tight">
-                      {newsletter.title}
-                    </h3>
-                  </div>
-                  
-                  <div className="space-y-2 mb-4">
-                    <div className="flex items-center justify-between text-sm">
-                      <span className="text-gray-600 dark:text-gray-400">Subscribers</span>
-                      <span className="font-medium text-gray-900 dark:text-white">{newsletter.subscriberCount.toLocaleString()}</span>
+                  <div className="flex items-center space-x-4 text-right">
+                    <div>
+                      <p className="text-sm font-semibold text-gray-900 dark:text-white">{creator.openRate}%</p>
+                      <p className="text-xs text-gray-500 dark:text-gray-400">Open Rate</p>
                     </div>
-                    <div className="flex items-center justify-between text-sm">
-                      <span className="text-gray-600 dark:text-gray-400">Read Time</span>
-                      <span className="font-medium text-gray-900 dark:text-white">{newsletter.readTime}</span>
+                    <div>
+                      <p className="text-sm font-semibold text-green-600 dark:text-green-400">
+                        {Math.round(creator.openRate * 0.65)}%
+                      </p>
+                      <p className="text-xs text-gray-500 dark:text-gray-400">CTR</p>
                     </div>
-                    <div className="flex items-center justify-between text-sm">
-                      <span className="text-gray-600 dark:text-gray-400">Niche</span>
-                      <Badge variant="outline" className="text-xs">{newsletter.niche}</Badge>
-                    </div>
-                    <div className="flex items-center justify-between text-sm">
-                      <span className="text-gray-600 dark:text-gray-400">Published</span>
-                      <span className="text-xs text-green-600 dark:text-green-400">{newsletter.publishedAt}</span>
-                    </div>
-                  </div>
-                  
-                  <div className="flex space-x-2">
-                    <Button size="sm" variant="outline" className="flex-1">
-                      <BookOpen className="w-4 h-4 mr-1" />
-                      Read
-                    </Button>
-                    <Button size="sm" className="flex-1">
-                      <Heart className="w-4 h-4 mr-1" />
-                      Save
-                    </Button>
                   </div>
                 </div>
               ))}
-            </div>
-          </CardContent>
-        </Card>
+            </CardContent>
+          </Card>
+          
+        </div>
+
+        
 
         {/* Popular Creators Section */}
         <Card className="border-gray-200 dark:border-gray-700">
@@ -501,7 +427,7 @@ const Page = () => {
                     </Button>
                     <Button size="sm" className="flex-1">
                       <Heart className="w-4 h-4 mr-1" />
-                      Follow
+                      Partner
                     </Button>
                   </div>
                 </div>

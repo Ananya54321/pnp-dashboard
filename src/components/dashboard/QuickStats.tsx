@@ -72,7 +72,7 @@ export const QuickStats: React.FC<QuickStatsProps> = ({ user }) => {
           <div className="text-lg font-bold text-gray-900 dark:text-white">{user.discordUsername}</div>
           <p className="text-xs text-green-600 dark:text-green-400">
             <span className="inline-block w-2 h-2 bg-green-500 rounded-full mr-1"></span>
-            Connected
+            Partnered
           </p>
         </CardContent>
       </Card>

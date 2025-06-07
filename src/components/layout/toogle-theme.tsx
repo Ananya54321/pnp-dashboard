@@ -19,7 +19,7 @@ export const ToggleTheme = () => {
       onClick={() => setTheme(currentTheme === "light" ? "dark" : "light")}
       size="sm"
       variant="ghost"
-      className="w-full justify-start"
+      className="w-full justify-start "
     >
       {mounted && (
         <>

@@ -40,15 +40,6 @@ export const CreatorRow = ({ creator, isExpanded, onToggleExpand }: CreatorRowPr
     return colors[(frequency || 'unknown') as keyof typeof colors] || colors.other;
   };
 
-  const getSubscriberTier = (count: number | undefined) => {
-    const safeCount = count || 0;
-    if (safeCount >= 100000) return { tier: 'Elite', color: 'bg-purple-100 text-purple-800 dark:bg-purple-900/20 dark:text-purple-400' };
-    if (safeCount >= 50000) return { tier: 'Premium', color: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/20 dark:text-yellow-400' };
-    if (safeCount >= 10000) return { tier: 'Pro', color: 'bg-blue-100 text-blue-800 dark:bg-blue-900/20 dark:text-blue-400' };
-    if (safeCount >= 1000) return { tier: 'Growing', color: 'bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-400' };
-    return { tier: 'Starter', color: 'bg-gray-100 text-gray-800 dark:bg-gray-900/20 dark:text-gray-400' };
-  };
-
   const formatDate = (dateString: string | undefined) => {
     if (!dateString) return 'N/A';
     try {
@@ -73,8 +64,6 @@ export const CreatorRow = ({ creator, isExpanded, onToggleExpand }: CreatorRowPr
     toast.success('Copied to clipboard!');
   };
 
-  const subscriberTier = getSubscriberTier(creator.subscriberCount);
-
   return (
     <React.Fragment>
       <tr className="hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
@@ -84,9 +73,6 @@ export const CreatorRow = ({ creator, isExpanded, onToggleExpand }: CreatorRowPr
               <p className="font-medium text-gray-900 dark:text-white">
                 {creator.creatorName || 'N/A'}
               </p>
-              <Badge className={subscriberTier.color}>
-                {subscriberTier.tier}
-              </Badge>
             </div>
             <p className="text-sm text-gray-600 dark:text-gray-400">
               {creator.brandName || 'N/A'}

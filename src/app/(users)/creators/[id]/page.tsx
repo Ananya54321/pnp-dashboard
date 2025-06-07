@@ -496,7 +496,7 @@ const CreatorDetailsPage = () => {
                           </Button>
                           <Button size="sm" className="flex-1">
                             <UserPlus className="w-4 h-4 mr-1" />
-                            Connect
+                            Partner
                           </Button>
                         </div>
                       </div>

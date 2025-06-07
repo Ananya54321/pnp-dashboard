@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { ToggleTheme } from "./toogle-theme";
@@ -17,9 +17,35 @@ import {
 
 function Sidebar() {
   const [isVisible, setIsVisible] = useState(false);
+  const [isAnimating, setIsAnimating] = useState(false);
   const pathname = usePathname();
   const { theme } = useTheme();
   const isDarkMode = theme === "dark";
+
+  // Add debounced hover handling for smoother animations
+  useEffect(() => {
+    let timeoutId: NodeJS.Timeout;
+    
+    if (isVisible) {
+      setIsAnimating(true);
+    } else {
+      timeoutId = setTimeout(() => {
+        setIsAnimating(false);
+      }, 300); // Delay to allow exit animation
+    }
+
+    return () => {
+      if (timeoutId) clearTimeout(timeoutId);
+    };
+  }, [isVisible]);
+
+  const handleMouseEnter = () => {
+    setIsVisible(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsVisible(false);
+  };
 
   // Define navigation items
   const navItems = [
@@ -64,11 +90,12 @@ function Sidebar() {
     <>
       <div
         className="sidebar h-[100%] ml-2 z-10 fixed flex flex-col justify-center"
-        onMouseEnter={() => setIsVisible(true)}
-        onMouseLeave={() => setIsVisible(false)}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+        style={{ willChange: 'transform' }}
       >
-        {/* Invisible hover area for desktop */}
-        <div className="hidden md:block fixed left-0 top-0 w-2 h-full bg-transparent z-10" />
+        {/* Invisible hover area for desktop - made wider for easier interaction */}
+        <div className="hidden md:block fixed left-0 top-0 w-8 h-full bg-transparent z-10" />
 
         <div
           className={`
@@ -79,20 +106,30 @@ function Sidebar() {
                 : "bg-white border-gray-200"
             } border text-current p-2 w-full md:w-[75px]
             fixed bottom-0 left-0 md:relative md:bottom-auto md:top-0 md:pl-4 md:h-[90vh]
-            md:transition-all md:duration-300 md:ease-in-out
-            ${isVisible ? "md:translate-x-0 md:w-[200px]" : "md:translate-x-[-85%]"}
+            md:transition-all md:duration-700 md:ease-[cubic-bezier(0.23,1,0.32,1)]
+            ${isVisible ? "md:translate-x-0 md:w-[200px]" : "md:translate-x-[-80%]"}
+            overflow-hidden transform-gpu backface-visibility-hidden
           `}
+          style={{ 
+            willChange: 'transform, width',
+            backfaceVisibility: 'hidden',
+            perspective: '1000px'
+          }}
         >
           {/* Logo/Brand */}
           <div className="hidden md:block mb-4 mt-2">
             <Link
               href="/dashboard"
-              className="font-bold text-sm flex items-center transition-opacity duration-300"
+              className="font-bold text-sm flex items-center"
             >
               <span 
-                className={`text-blue-800 dark:text-blue-400 transition-opacity duration-300 ${
-                  isVisible ? "opacity-100" : "opacity-0"
+                className={`text-blue-800 dark:text-blue-200 transition-all duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] transform-gpu ${
+                  isVisible ? "opacity-100 translate-x-0 scale-100" : "opacity-0 translate-x-[-15px] scale-95"
                 }`}
+                style={{ 
+                  transitionDelay: isVisible ? '200ms' : '0ms',
+                  willChange: 'transform, opacity'
+                }}
               >
                 PickandPartner
               </span>
@@ -100,7 +137,7 @@ function Sidebar() {
           </div>
 
           {/* Navigation Items */}
-          {navItems.map((item) => {
+          {navItems.map((item, index) => {
             const Icon = item.icon;
             const isActive = pathname === item.href || pathname.startsWith(item.href + "/");
             
@@ -113,25 +150,33 @@ function Sidebar() {
                   href={item.href}
                   className={`
                     flex items-center w-full h-full
-                    rounded-md transition-all duration-200 p-2
+                    rounded-md transition-all duration-400 ease-[cubic-bezier(0.23,1,0.32,1)] p-2 transform-gpu
                     ${isVisible ? "justify-start" : "justify-center md:justify-center"}
                     ${
                       isActive
-                        ? "bg-blue-600 text-white"
+                        ? "bg-black dark:bg-gray-700 text-white shadow-lg"
                         : isDarkMode
                         ? "text-gray-300 hover:text-white hover:bg-gray-800"
                         : "text-gray-600 hover:text-gray-900 hover:bg-gray-100"
                     }
                   `}
+                  style={{ willChange: 'transform, background-color' }}
                 >
                   <Icon
-                    className={`${isVisible ? "mr-3" : "mx-auto"} ${isActive ? "text-white" : ""}`}
+                    className={`transition-all duration-400 ease-[cubic-bezier(0.23,1,0.32,1)] transform-gpu ${
+                      isVisible ? "mr-3" : "mx-auto"
+                    } ${isActive ? "text-white" : ""}`}
                     size={20}
+                    style={{ willChange: 'transform' }}
                   />
                   <span 
-                    className={`text-sm font-medium transition-opacity duration-300 ${
-                      isVisible ? "opacity-100" : "opacity-0 md:hidden"
+                    className={`text-sm font-medium transition-all duration-600 ease-[cubic-bezier(0.23,1,0.32,1)] whitespace-nowrap transform-gpu ${
+                      isVisible ? "opacity-100 translate-x-0 scale-100" : "opacity-0 translate-x-[-15px] scale-95 md:hidden"
                     }`}
+                    style={{ 
+                      transitionDelay: isVisible ? `${100 + index * 50}ms` : '0ms',
+                      willChange: 'transform, opacity'
+                    }}
                   >
                     {item.label}
                   </span>
@@ -142,7 +187,15 @@ function Sidebar() {
 
           {/* Theme Toggle */}
           <div className="hidden md:block mt-auto mb-4">
-            <div className={`flex items-center justify-center ${isVisible ? "px-4" : ""}`}>
+            <div 
+              className={`flex items-center justify-center transition-all duration-600 ease-[cubic-bezier(0.23,1,0.32,1)] transform-gpu ${
+                isVisible ? "px-4 opacity-100 translate-y-0" : "opacity-70 translate-y-1"
+              }`}
+              style={{ 
+                transitionDelay: isVisible ? '300ms' : '0ms',
+                willChange: 'transform, opacity'
+              }}
+            >
               <ToggleTheme />
             </div>
           </div>

@@ -79,7 +79,7 @@ export const RecommendedCreators: React.FC<RecommendedCreatorsProps> = ({ creato
               </Button>
               <Button size="sm" className="px-3 py-1 text-xs">
                 <UserPlus className="w-3 h-3 mr-1" />
-                Connect
+                Partner
               </Button>
             </div>
           </div>
