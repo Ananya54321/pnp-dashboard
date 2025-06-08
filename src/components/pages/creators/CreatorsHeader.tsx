@@ -6,11 +6,10 @@ import { Filter } from "lucide-react"
 
 interface CreatorsHeaderProps {
   totalCreators: number;
-  showFilters: boolean;
   onToggleFilters: () => void;
 }
 
-export const CreatorsHeader = ({ totalCreators, showFilters, onToggleFilters }: CreatorsHeaderProps) => {
+export const CreatorsHeader = ({ totalCreators, onToggleFilters }: CreatorsHeaderProps) => {
   return (
     <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
       <div>

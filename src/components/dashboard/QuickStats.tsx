@@ -1,19 +1,7 @@
 import React from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { 
-  Users, 
-  TrendingUp, 
-  Mail, 
-  Calendar,
-  MessageCircle
-} from 'lucide-react'
-
-interface User {
-  subscriberCount: number
-  openRate: number
-  frequency: string
-  discordUsername: string
-}
+import { Users, TrendingUp, Mail, Calendar, FileText } from 'lucide-react'
+import { User } from '@/types/dashboard'
 
 interface QuickStatsProps {
   user: User
@@ -52,30 +40,37 @@ export const QuickStats: React.FC<QuickStatsProps> = ({ user }) => {
 
       <Card className="border-gray-200 dark:border-gray-700">
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-          <CardTitle className="text-sm font-medium text-gray-600 dark:text-gray-400">Frequency</CardTitle>
+          <CardTitle className="text-sm font-medium text-gray-600 dark:text-gray-400">Click Through Rate</CardTitle>
           <Calendar className="h-4 w-4 text-purple-600" />
         </CardHeader>
         <CardContent>
-          <div className="text-2xl font-bold text-gray-900 dark:text-white capitalize">{user.frequency}</div>
-          <p className="text-xs text-gray-500 dark:text-gray-400">
-            Newsletter schedule
+          <div className="text-2xl font-bold text-gray-900 dark:text-white">{user.clickThroughRate}%</div>
+          <p className="text-xs text-red-600 dark:text-red-400">
+            -0.5% from last week
           </p>
         </CardContent>
       </Card>
 
-      <Card className="border-gray-200 dark:border-gray-700">
+      <Card className="border-gray-200 dark:border-gray-700 hover:shadow-lg transition-all duration-300 cursor-pointer group">
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-          <CardTitle className="text-sm font-medium text-gray-600 dark:text-gray-400">Discord</CardTitle>
-          <MessageCircle className="h-4 w-4 text-indigo-600" />
+          <CardTitle className="text-sm font-medium text-gray-600 dark:text-gray-400">Newsletter Analysis</CardTitle>
+          <FileText className="h-4 w-4 text-blue-600 group-hover:scale-110 transition-transform duration-200" />
         </CardHeader>
         <CardContent>
-          <div className="text-lg font-bold text-gray-900 dark:text-white">{user.discordUsername}</div>
-          <p className="text-xs text-green-600 dark:text-green-400">
-            <span className="inline-block w-2 h-2 bg-green-500 rounded-full mr-1"></span>
-            Partnered
-          </p>
+          <a 
+            href="https://evaluateyournl.com" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="block"
+          >
+            <div className="text-2xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-200">
+              Evaluate your newsletter →
+            </div>
+          </a>
         </CardContent>
       </Card>
     </div>
   )
 }
+
+

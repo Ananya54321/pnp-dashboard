@@ -15,9 +15,7 @@ import {
   MessageSquare,
   Copy,
   Globe,
-  Clock,
   FileText,
-  Star,
   Shield,
   Target,
   Filter,
@@ -117,17 +115,6 @@ const CreatorDetailsPage = () => {
       month: 'long', 
       day: 'numeric' 
     })
-  }
-
-  const getFrequencyColor = (frequency: string) => {
-    const colors = {
-      daily: 'bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-400',
-      weekly: 'bg-blue-100 text-blue-800 dark:bg-blue-900/20 dark:text-blue-400',
-      'bi-weekly': 'bg-purple-100 text-purple-800 dark:bg-purple-900/20 dark:text-purple-400',
-      monthly: 'bg-orange-100 text-orange-800 dark:bg-orange-900/20 dark:text-orange-400',
-      other: 'bg-gray-100 text-gray-800 dark:bg-gray-900/20 dark:text-gray-400'
-    }
-    return colors[frequency as keyof typeof colors] || colors.other
   }
 
   const getSubscriberTier = (count: number) => {

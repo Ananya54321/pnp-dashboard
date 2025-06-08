@@ -4,21 +4,7 @@ import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Award, Star, MessageCircle, Heart } from 'lucide-react'
-
-interface PopularCreator {
-  id: string
-  creatorName: string
-  brandName: string
-  avatar: string
-  subscriberCount: number
-  niche: string
-  openRate: number
-  userLink: string
-  discordUsername: string
-  frequency: string
-  isVerified: boolean
-  lastActive: string
-}
+import { PopularCreator } from '@/types/dashboard'
 
 interface PopularCreatorsProps {
   creators: PopularCreator[]

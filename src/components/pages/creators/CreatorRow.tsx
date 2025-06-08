@@ -50,7 +50,7 @@ export const CreatorRow = ({ creator, isExpanded, onToggleExpand }: CreatorRowPr
         month: 'short', 
         day: 'numeric' 
       });
-    } catch (error) {
+    } catch {
       return 'Invalid Date';
     }
   };

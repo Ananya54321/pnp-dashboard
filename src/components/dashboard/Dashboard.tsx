@@ -1,6 +1,6 @@
 import React from 'react'
 import { WelcomeHeader } from './WelcomeHeader'
-import { QuickStats } from './QuickStats'
+import { QuickStats } from './index'
 import { CreatorProfileSummary } from './CreatorProfileSummary'
 import { RecommendedCreators } from './RecommendedCreators'
 import { NewsletterFeed } from './NewsletterFeed'
@@ -16,6 +16,7 @@ export interface User {
   subscriberCount: number
   niche: string
   openRate: number
+  clickThroughRate: number
   userLink: string
   adCopy: string
   discordUsername: string

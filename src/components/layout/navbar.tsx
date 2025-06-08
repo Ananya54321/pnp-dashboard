@@ -3,13 +3,11 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
 import { ToggleTheme } from "./toogle-theme";
 import { useTheme } from "next-themes";
 
 export const Navbar = () => {
   const { theme } = useTheme();
-  const pathname = usePathname();
   const isDarkMode = theme === "dark";
 
   // // Only show navbar on landing page

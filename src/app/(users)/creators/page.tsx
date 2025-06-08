@@ -39,7 +39,6 @@ const CreatorsPage = () => {
       <div className="max-w-7xl mx-auto space-y-6">
         <CreatorsHeader 
           totalCreators={filteredData.length}
-          showFilters={showFilters}
           onToggleFilters={() => setShowFilters(!showFilters)}
         />
         

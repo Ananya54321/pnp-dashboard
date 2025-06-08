@@ -4,20 +4,7 @@ import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Target, Filter, MessageCircle, UserPlus } from 'lucide-react'
-
-interface Creator {
-  id: string
-  creatorName: string
-  brandName: string
-  avatar: string
-  subscriberCount: number
-  niche: string
-  openRate: number
-  userLink: string
-  discordUsername: string
-  frequency: string
-  isOnline: boolean
-}
+import { Creator } from '@/types/dashboard'
 
 interface RecommendedCreatorsProps {
   creators: Creator[]

@@ -2,14 +2,10 @@
 import React, { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import Image from "next/image";
-import { ToggleTheme } from "./toogle-theme";
 import { useTheme } from "next-themes";
 import {
   Home,
   Users,
-  User,
-  BarChart3,
   Settings,
   MessageCircle,
   Calendar,
@@ -18,26 +14,13 @@ import {
 
 function Sidebar() {
   const [isVisible, setIsVisible] = useState(false);
-  const [isAnimating, setIsAnimating] = useState(false);
   const pathname = usePathname();
   const { theme } = useTheme();
   const isDarkMode = theme === "dark";
 
   // Add debounced hover handling for smoother animations
   useEffect(() => {
-    let timeoutId: NodeJS.Timeout;
-    
-    if (isVisible) {
-      setIsAnimating(true);
-    } else {
-      timeoutId = setTimeout(() => {
-        setIsAnimating(false);
-      }, 300); // Delay to allow exit animation
-    }
-
-    return () => {
-      if (timeoutId) clearTimeout(timeoutId);
-    };
+    // This effect can be used for cleanup if needed
   }, [isVisible]);
 
   const handleMouseEnter = () => {
