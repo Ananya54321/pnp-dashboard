@@ -5,9 +5,13 @@ import Link from "next/link";
 import Image from "next/image";
 import { ToggleTheme } from "./toogle-theme";
 import { useTheme } from "next-themes";
+import { useAuth } from "@/contexts/AuthContext";
+import { LogoutButton } from "@/components/auth/LogoutButton";
+import { User } from "lucide-react";
 
 export const Navbar = () => {
   const { theme } = useTheme();
+  const { user, loading } = useAuth();
   const isDarkMode = theme === "dark";
 
   // // Only show navbar on landing page
@@ -38,6 +42,20 @@ export const Navbar = () => {
       </Link>
 
       <div className="flex items-center">
+        {/* User section - only show when authenticated */}
+        {!loading && user && (
+          <div className="flex items-center space-x-3">
+            <LogoutButton 
+              variant="ghost" 
+              size="sm" 
+              className="text-red-600 hover:text-red-700 hover:bg-red-50 dark:text-red-400 dark:hover:text-red-300 dark:hover:bg-red-900/20" 
+              showIcon={true}
+            >
+              <span className="hidden sm:inline">Sign Out</span>
+            </LogoutButton>
+          </div>
+        )}
+        
         <ToggleTheme />
       </div>
     </header>

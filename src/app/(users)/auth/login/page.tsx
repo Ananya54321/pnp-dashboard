@@ -8,9 +8,12 @@ import { Alert, AlertDescription } from '@/components/ui/alert'
 import { Eye, EyeOff, Mail, Lock, ArrowRight, Loader2 } from 'lucide-react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
+import { useAuth } from '@/contexts/AuthContext'
+import { GoogleOAuthButton, GitHubOAuthButton } from '@/components/auth/OAuthButton'
 
 const LoginPage = () => {
   const router = useRouter()
+  const { login } = useAuth()
   const [formData, setFormData] = useState({
     email: '',
     password: ''
@@ -36,27 +39,14 @@ const LoginPage = () => {
     setSuccess('')
 
     try {
-      const response = await fetch('http://localhost:3004/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      })
-
-      const data = await response.json()
-
-      if (data.success) {
-        localStorage.setItem('token', data.token)
-        setSuccess('Login successful! Redirecting to dashboard...')
-        setTimeout(() => {
-          router.push('/dashboard')
-        }, 1500)
-      } else {
-        setError(data.message || 'Login failed')
-      }
-    } catch {
-      setError('Network error. Please check your connection and try again.')
+      await login(formData.email, formData.password)
+      setSuccess('Login successful! Redirecting...')
+      setTimeout(() => {
+        router.push('/dashboard')
+      }, 1000)
+    } catch (error: any) {
+      console.error('Login error:', error)
+      setError(error.message || 'Login failed. Please check your credentials.')
     } finally {
       setLoading(false)
     }
@@ -90,6 +80,24 @@ const LoginPage = () => {
           </CardHeader>
           
           <CardContent className="space-y-4">
+            {/* OAuth Buttons */}
+            <div className="space-y-3">
+              <GoogleOAuthButton disabled={loading} />
+              <GitHubOAuthButton disabled={loading} />
+            </div>
+
+            {/* Divider */}
+            <div className="relative">
+              <div className="absolute inset-0 flex items-center">
+                <span className="w-full border-t border-gray-300 dark:border-gray-600" />
+              </div>
+              <div className="relative flex justify-center text-xs uppercase">
+                <span className="bg-white dark:bg-black px-2 text-gray-500 dark:text-gray-400">
+                  Or continue with email
+                </span>
+              </div>
+            </div>
+
             <form onSubmit={handleSubmit} className="space-y-4">
               
               {/* Email Field */}
@@ -182,10 +190,18 @@ const LoginPage = () => {
               <p className="text-sm text-gray-600 dark:text-gray-300">
                 Don&apos;t have an account?{' '}
                 <Link 
-                  href="/register" 
+                  href="/auth/register" 
                   className="text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 font-medium transition-colors underline decoration-blue-600 dark:decoration-blue-400 underline-offset-2"
                 >
                   Create one here
+                </Link>
+              </p>
+              <p className="text-sm text-gray-600 dark:text-gray-300">
+                <Link 
+                  href="/auth/forgot-password" 
+                  className="text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 font-medium transition-colors underline decoration-blue-600 dark:decoration-blue-400 underline-offset-2"
+                >
+                  Forgot your password?
                 </Link>
               </p>
             </div>

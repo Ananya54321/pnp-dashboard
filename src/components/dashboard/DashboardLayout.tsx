@@ -6,7 +6,7 @@ interface DashboardLayoutProps {
 
 export const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
   return (
-    <div className="min-h-screen dark:bg-black p-6">
+    <div className="min-h-screen dark:bg-black pt-24">
       <div className="max-w-7xl mx-auto space-y-8">
         {children}
       </div>

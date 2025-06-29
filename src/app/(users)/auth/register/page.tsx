@@ -10,9 +10,14 @@ import { Alert, AlertDescription } from '@/components/ui/alert'
 import { Eye, EyeOff, User, Building, Mail, Lock, ArrowRight, Loader2, Users, TrendingUp, Link as LinkIcon, MessageSquare, Clock, FileText } from 'lucide-react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
+import { useAuth } from '@/contexts/AuthContext'
+import { DatabaseService } from '@/lib/database'
+import { account } from '@/lib/appwrite'
+import { GoogleOAuthButton, GitHubOAuthButton } from '@/components/auth/OAuthButton'
 
 const RegisterPage = () => {
   const router = useRouter()
+  const { register } = useAuth()
   const [currentStep, setCurrentStep] = useState(1)
   const [formData, setFormData] = useState({
     creatorName: '',
@@ -99,40 +104,39 @@ const RegisterPage = () => {
     setSuccess('')
 
     try {
-      const userData = {
+      // Register user with Appwrite using creator name as display name
+      await register(
+        formData.email.toLowerCase(),
+        formData.password,
+        formData.creatorName
+      )
+
+      // Get the current user to access their ID
+      const currentUser = await account.get()
+      
+      // Create creator profile in database
+      await DatabaseService.createCreatorProfile({
         creatorName: formData.creatorName,
         brandName: formData.brandName,
         email: formData.email.toLowerCase(),
-        password: formData.password,
         niche: formData.niche,
-        subscriberCount: parseInt(formData.subscriberCount),
-        openRate: parseFloat(formData.openRate),
+        subscriberCount: parseInt(formData.subscriberCount) || 0,
+        openRate: parseFloat(formData.openRate) || 0,
         userLink: formData.userLink,
         discordUsername: formData.discordUsername,
-        frequency: formData.frequency.toLowerCase(),
+        frequency: formData.frequency,
         adCopy: formData.adCopy,
-        specialInstructions: formData.specialInstructions || ''
-      }
+        specialInstructions: formData.specialInstructions,
+        isOnboardingComplete: true
+      }, currentUser.$id)
 
-      const response = await fetch('http://localhost:3004/signup', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ user: userData }),
-      })
-
-      const data = await response.json()
-
-      if (data.success) {
-        setSuccess('Account created successfully! Redirecting to login...')
-        
-          router.push('/login')
-      } else {
-        setError(data.message || 'Registration failed')
-      }
-    } catch {
-      setError('Network error. Please check your connection and try again.')
+      setSuccess('Account created successfully! Redirecting to dashboard...')
+      setTimeout(() => {
+        router.push('/dashboard')
+      }, 1000)
+    } catch (error: any) {
+      console.error('Registration error:', error)
+      setError(error.message || 'Registration failed. Please try again.')
     } finally {
       setLoading(false)
     }
@@ -479,6 +483,28 @@ const RegisterPage = () => {
           </CardHeader>
           
           <CardContent className="space-y-6">
+            {/* OAuth Buttons - Only show on step 1 */}
+            {currentStep === 1 && (
+              <>
+                <div className="space-y-3">
+                  <GoogleOAuthButton disabled={loading} />
+                  <GitHubOAuthButton disabled={loading} />
+                </div>
+
+                {/* Divider */}
+                <div className="relative">
+                  <div className="absolute inset-0 flex items-center">
+                    <span className="w-full border-t border-gray-300 dark:border-gray-600" />
+                  </div>
+                  <div className="relative flex justify-center text-xs uppercase">
+                    <span className="bg-white dark:bg-black px-2 text-gray-500 dark:text-gray-400">
+                      Or continue with email
+                    </span>
+                  </div>
+                </div>
+              </>
+            )}
+
             <form onSubmit={handleSubmit} className="space-y-6">
               
               {/* Dynamic Step Content */}

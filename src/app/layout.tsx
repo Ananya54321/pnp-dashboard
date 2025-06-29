@@ -7,6 +7,7 @@ import Sidebar from "@/components/layout/sidebar";
 import { ThemeProvider } from "@/components/layout/theme-provider";
 import { ThemeAwareContent } from "@/components/layout/theme-aware-content"; // Import the new component
 import { Toaster } from "@/components/ui/sonner";
+import { AuthProvider } from "@/contexts/AuthContext";
 
 const inter = Inter({ subsets: ["latin"] });
 // const inter = Inter({
@@ -30,7 +31,8 @@ export default function RootLayout({
     <html lang="pt-br" suppressHydrationWarning>
       <body className={cn(" overflow-y-scroll overflow-x-hidden", inter.className)}>
         <ThemeProvider>
-          <ThemeAwareContent> 
+          <AuthProvider>
+            <ThemeAwareContent> 
             <div className="flex min-h-screen">
               {/* Sidebar */}
               <Sidebar />
@@ -50,6 +52,7 @@ export default function RootLayout({
             </div>
             <Toaster />
           </ThemeAwareContent>
+        </AuthProvider>
         </ThemeProvider>
       </body>
     </html>
