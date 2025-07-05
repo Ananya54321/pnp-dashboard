@@ -18,7 +18,7 @@ const ShortenURL = () => {
     
     try {
       setLoading(true);
-      const res = await axios.post("https://pickandpartner-94sz.onrender.com/shorten", {originalUrl: url});
+      const res = await axios.post("https://pickandpartner.nextdevs.me/shorten", {originalUrl: url});
       setShortUrl(res.data.shortUrl);
       toast.success("URL shortened successfully!");
       setLoading(false);

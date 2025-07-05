@@ -8,24 +8,29 @@ import { Input } from '../../ui/input'
 interface VisitorDetail {
   visitorId: string;
   city: string;
-  _id: string;
+  id: string;
 }
 
 interface URLData {
-  _id: string;
+  id: number; // Changed from string to number to match API response
   shortId: string;
   originalUrl: string;
   totalClicks: number;
   uniqueClicks: number;
-  visitorDetails: VisitorDetail[];
+  visitorDetails?: VisitorDetail[]; // Made optional since it might not always be present
   createdAt: string;
   updatedAt: string;
-  __v: number;
 }
 
+// API returns object with data array and pagination
 interface ApiResponse {
-  success: boolean;
-  urlData: URLData[];
+  data: URLData[];
+  pagination: {
+    totalCount: number;
+    totalPages: number;
+    currentPage: number;
+    limit: number;
+  };
 }
 
 // Filter type definitions
@@ -49,11 +54,11 @@ interface FilterState {
 }
 
 const DisplayData = () => {
-  const [data, setData] = useState<ApiResponse | null>(null);
+  const [data, setData] = useState<URLData[]>([]);
   const [filteredData, setFilteredData] = useState<URLData[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  const [expandedRow, setExpandedRow] = useState<string | null>(null);
+  const [expandedRow, setExpandedRow] = useState<number | null>(null);
   
   // Filter states
   const [filters, setFilters] = useState<FilterState>({
@@ -70,18 +75,35 @@ const DisplayData = () => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const response = await axios.get("https://pickandpartner-94sz.onrender.com/get-info");
-        setData(response.data);
+        setError(null);
+        const response = await axios.get("https://pickandpartner.nextdevs.me/urls");
+        console.log('API Response:', response.data);
         
-        // Initialize filteredData with all data initially
-        if (response.data && response.data.success) {
-          setFilteredData(response.data.urlData);
+        // Check if response.data has the expected structure
+        if (response.data && response.data.data && Array.isArray(response.data.data)) {
+          // Validate that each item has required properties
+          const isValidData = response.data.data.every((item: any) => 
+            item && 
+            typeof item.id !== 'undefined' && 
+            typeof item.shortId === 'string' && 
+            typeof item.originalUrl === 'string' &&
+            typeof item.totalClicks === 'number' &&
+            typeof item.uniqueClicks === 'number' &&
+            typeof item.createdAt === 'string'
+          );
+          
+          if (!isValidData) {
+            throw new Error('API response contains invalid data structure');
+          }
+          
+          setData(response.data.data);
+          setFilteredData(response.data.data);
           
           // Set default max values based on actual data
-          const maxTotalClicks = Math.max(...response.data.urlData.map((url: URLData) => url.totalClicks), 0);
-          const maxUniqueClicks = Math.max(...response.data.urlData.map((url: URLData) => url.uniqueClicks), 0);
+          const maxTotalClicks = Math.max(...response.data.data.map((url: URLData) => url.totalClicks), 0);
+          const maxUniqueClicks = Math.max(...response.data.data.map((url: URLData) => url.uniqueClicks), 0);
           
-          const dates = response.data.urlData.map((url: URLData) => new Date(url.createdAt).getTime());
+          const dates = response.data.data.map((url: URLData) => new Date(url.createdAt).getTime());
           const minDate = dates.length ? new Date(Math.min(...dates)).toISOString().split('T')[0] : '';
           const maxDate = dates.length ? new Date(Math.max(...dates)).toISOString().split('T')[0] : '';
           
@@ -91,13 +113,19 @@ const DisplayData = () => {
             uniqueClicks: { min: 0, max: maxUniqueClicks },
             dateRange: { start: minDate, end: maxDate }
           }));
+        } else {
+          throw new Error('API response is not in expected format - missing data array');
         }
         
         setLoading(false);
       } catch (err: unknown) {
-        setError("Failed to fetch data");
+        console.error('Error fetching data:', err);
+        if (axios.isAxiosError(err)) {
+          setError(`Failed to fetch data: ${err.message}`);
+        } else {
+          setError("Failed to fetch data: Unknown error");
+        }
         setLoading(false);
-        console.log(err);
         toast.error("Failed to fetch URL data");
       }
     };
@@ -107,9 +135,9 @@ const DisplayData = () => {
   
   // Apply filters whenever filters change
   useEffect(() => {
-    if (!data || !data.urlData) return;
+    if (!data || data.length === 0) return;
     
-    let filtered = [...data.urlData];
+    let filtered = [...data];
     
     // Filter by total clicks
     filtered = filtered.filter(url => 
@@ -193,7 +221,7 @@ const DisplayData = () => {
     toast.success("Copied to clipboard!");
   };
   
-  const toggleExpandRow = (id: string) => {
+  const toggleExpandRow = (id: number) => {
     if (expandedRow === id) {
       setExpandedRow(null);
     } else {
@@ -214,11 +242,11 @@ const DisplayData = () => {
   };
   
   const clearFilters = () => {
-    if (data && data.urlData.length > 0) {
-      const maxTotalClicks = Math.max(...data.urlData.map((url) => url.totalClicks), 0);
-      const maxUniqueClicks = Math.max(...data.urlData.map((url) => url.uniqueClicks), 0);
+    if (data && data.length > 0) {
+      const maxTotalClicks = Math.max(...data.map((url: URLData) => url.totalClicks), 0);
+      const maxUniqueClicks = Math.max(...data.map((url: URLData) => url.uniqueClicks), 0);
       
-      const dates = data.urlData.map((url) => new Date(url.createdAt).getTime());
+      const dates = data.map((url: URLData) => new Date(url.createdAt).getTime());
       const minDate = dates.length ? new Date(Math.min(...dates)).toISOString().split('T')[0] : '';
       const maxDate = dates.length ? new Date(Math.max(...dates)).toISOString().split('T')[0] : '';
       
@@ -240,11 +268,11 @@ const DisplayData = () => {
     );
   }
   
-  if (error || !data?.success) {
+  if (error || !data || data.length === 0) {
     return (
       <div className="p-6 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
         <h3 className="text-lg font-medium text-red-800 dark:text-red-400">Error fetching data</h3>
-        <p className="text-red-600 dark:text-red-400">{error || "Unknown error"}</p>
+        <p className="text-red-600 dark:text-red-400">{error || "No data available"}</p>
       </div>
     );
   }
@@ -377,7 +405,7 @@ const DisplayData = () => {
           </div>
           
           <div className="text-sm text-gray-600 dark:text-gray-400">
-            Showing {filteredData.length} of {data.urlData.length} URLs
+            Showing {filteredData.length} of {data.length} URLs
           </div>
         </div>
       )}
@@ -433,8 +461,8 @@ const DisplayData = () => {
           <tbody className="bg-white dark:bg-gray-900 divide-y divide-gray-200 dark:divide-gray-700">
             {filteredData.length > 0 ? (
               filteredData.map((url) => (
-                <React.Fragment key={url._id}>
-                  <tr className={`hover:bg-gray-50 dark:hover:bg-gray-800 ${expandedRow === url._id ? "bg-blue-50 dark:bg-blue-900/20" : ""}`}>
+                <React.Fragment key={url.id}>
+                  <tr className={`hover:bg-gray-50 dark:hover:bg-gray-800 ${expandedRow === url.id ? "bg-blue-50 dark:bg-blue-900/20" : ""}`}>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="flex items-center">
                         <div className="font-medium text-gray-900 dark:text-white">
@@ -464,29 +492,29 @@ const DisplayData = () => {
                       <Button 
                         size="sm" 
                         variant="outline" 
-                        onClick={() => copyToClipboard(`https://pickandpartner-94sz.onrender.com/${url.shortId}`)}
+                        onClick={() => copyToClipboard(`https://pickandpartner.nextdevs.me/${url.shortId}`)}
                       >
                         Copy URL
                       </Button>
                       <Button 
                         size="sm" 
                         variant="secondary"
-                        onClick={() => toggleExpandRow(url._id)} 
+                        onClick={() => toggleExpandRow(url.id)} 
                       >
-                        {expandedRow === url._id ? "Hide Details" : "View Details"}
+                        {expandedRow === url.id ? "Hide Details" : "View Details"}
                       </Button>
                     </td>
                   </tr>
-                  {expandedRow === url._id && (
+                  {expandedRow === url.id && (
                     <tr>
                       <td colSpan={6} className="bg-gray-50 dark:bg-gray-800 px-6 py-4">
                         <div className="space-y-4">
                           <div>
                             <h4 className="font-medium text-sm mb-2 text-gray-900 dark:text-white">Visitor Information</h4>
-                            {url.visitorDetails.length > 0 ? (
+                            {url.visitorDetails && url.visitorDetails.length > 0 ? (
                               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
                                 {url.visitorDetails.map((visitor) => (
-                                  <div key={visitor._id} className="bg-white dark:bg-gray-700 p-2 rounded-md shadow-sm text-sm border border-gray-200 dark:border-gray-600">
+                                  <div key={visitor.id} className="bg-white dark:bg-gray-700 p-2 rounded-md shadow-sm text-sm border border-gray-200 dark:border-gray-600">
                                     <p className="text-gray-900 dark:text-white">ID: {visitor.visitorId.substring(0, 10)}...</p>
                                     <p className="text-gray-600 dark:text-gray-400">Location: {visitor.city || "Unknown"}</p>
                                   </div>
