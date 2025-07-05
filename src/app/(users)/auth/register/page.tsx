@@ -134,9 +134,10 @@ const RegisterPage = () => {
       setTimeout(() => {
         router.push('/dashboard')
       }, 1000)
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Registration error:', error)
-      setError(error.message || 'Registration failed. Please try again.')
+      const errorMessage = error instanceof Error ? error.message : 'Registration failed. Please try again.'
+      setError(errorMessage)
     } finally {
       setLoading(false)
     }

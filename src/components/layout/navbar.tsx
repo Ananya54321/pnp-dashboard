@@ -7,7 +7,7 @@ import { ToggleTheme } from "./toogle-theme";
 import { useTheme } from "next-themes";
 import { useAuth } from "@/contexts/AuthContext";
 import { LogoutButton } from "@/components/auth/LogoutButton";
-import { User } from "lucide-react";
+// import { User } from "lucide-react"; // Commented out unused import
 
 export const Navbar = () => {
   const { theme } = useTheme();

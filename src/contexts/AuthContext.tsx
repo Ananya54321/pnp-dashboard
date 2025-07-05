@@ -2,7 +2,8 @@
 
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { account, oAuthProviders } from '@/lib/appwrite';
-import { Models, OAuthProvider } from 'appwrite';
+import { Models } from 'appwrite';
+// import { OAuthProvider } from 'appwrite'; // Commented out unused import
 
 interface AuthContextType {
   user: Models.User<Models.Preferences> | null;
@@ -41,8 +42,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     try {
       const currentUser = await account.get();
       setUser(currentUser);
-    } catch (error) {
-      console.log('No active session');
+    } catch {
+      // console.log('No active session'); // Commented out unused error variable
       setUser(null);
     } finally {
       setLoading(false);

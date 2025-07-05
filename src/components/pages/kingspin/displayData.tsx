@@ -22,17 +22,6 @@ interface URLData {
   updatedAt: string;
 }
 
-// API returns object with data array and pagination
-interface ApiResponse {
-  data: URLData[];
-  pagination: {
-    totalCount: number;
-    totalPages: number;
-    currentPage: number;
-    limit: number;
-  };
-}
-
 // Filter type definitions
 type SortDirection = 'asc' | 'desc';
 
@@ -82,14 +71,15 @@ const DisplayData = () => {
         // Check if response.data has the expected structure
         if (response.data && response.data.data && Array.isArray(response.data.data)) {
           // Validate that each item has required properties
-          const isValidData = response.data.data.every((item: any) => 
+          const isValidData = response.data.data.every((item: unknown) => 
             item && 
-            typeof item.id !== 'undefined' && 
-            typeof item.shortId === 'string' && 
-            typeof item.originalUrl === 'string' &&
-            typeof item.totalClicks === 'number' &&
-            typeof item.uniqueClicks === 'number' &&
-            typeof item.createdAt === 'string'
+            typeof item === 'object' &&
+            'id' in item &&
+            'shortId' in item &&
+            'originalUrl' in item &&
+            'totalClicks' in item &&
+            'uniqueClicks' in item &&
+            'createdAt' in item
           );
           
           if (!isValidData) {

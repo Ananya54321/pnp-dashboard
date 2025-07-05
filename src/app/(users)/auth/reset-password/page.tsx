@@ -8,12 +8,12 @@ import { Alert, AlertDescription } from '@/components/ui/alert'
 import { Eye, EyeOff, Lock, ArrowRight, Loader2 } from 'lucide-react'
 import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { useAuth } from '@/contexts/AuthContext'
+// import { useAuth } from '@/contexts/AuthContext' // Commented out unused import
 
 const ResetPasswordPage = () => {
   const router = useRouter()
   const searchParams = useSearchParams()
-  const { updatePassword } = useAuth()
+  // Removed unused useAuth import
   
   const [formData, setFormData] = useState({
     password: '',
@@ -73,9 +73,10 @@ const ResetPasswordPage = () => {
       setTimeout(() => {
         router.push('/auth/login')
       }, 2000)
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Reset password error:', error)
-      setError(error.message || 'Failed to reset password. Please try again or request a new reset link.')
+      const errorMessage = error instanceof Error ? error.message : 'Failed to reset password. Please try again or request a new reset link.'
+      setError(errorMessage)
     } finally {
       setLoading(false)
     }

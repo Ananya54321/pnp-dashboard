@@ -1,4 +1,5 @@
-import { databases, client } from './appwrite';
+import { databases } from './appwrite';
+// import { client } from './appwrite'; // Commented out unused import
 import { Models, Query } from 'appwrite';
 
 // Environment variables

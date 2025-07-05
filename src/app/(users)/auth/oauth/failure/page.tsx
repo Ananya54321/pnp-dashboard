@@ -3,7 +3,7 @@ import React from 'react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Alert, AlertDescription } from '@/components/ui/alert'
-import { XCircle, ArrowLeft, Home, RefreshCw, AlertTriangle, MessageCircle } from 'lucide-react'
+import { XCircle, Home, RefreshCw, AlertTriangle, MessageCircle } from 'lucide-react'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import AnimatedGradientText from '@/components/magicui/animated-gradient-text'
@@ -71,7 +71,7 @@ const OAuthFailurePage = () => {
                   Oops! Something went wrong
                 </CardTitle>
                 <CardDescription className="text-lg text-gray-600 dark:text-gray-400">
-                  We couldn't complete your sign-in request
+                  We couldn&apos;t complete your sign-in request
                 </CardDescription>
               </motion.div>
             </CardHeader>
@@ -158,7 +158,7 @@ const OAuthFailurePage = () => {
                   </div>
                   <p className="text-xs text-gray-500 dark:text-gray-400 max-w-md mx-auto">
                     If you continue to experience issues, please contact our support team. 
-                    We're here to help you get connected!
+                    We&apos;re here to help you get connected!
                   </p>
                   <motion.div
                     whileHover={{ scale: 1.05 }}

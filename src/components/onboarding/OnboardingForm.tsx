@@ -15,7 +15,7 @@ import {
   Link as LinkIcon, 
   MessageSquare, 
   Clock, 
-  FileText, 
+  // FileText, // Commented out unused import
   ArrowRight, 
   Loader2,
   CheckCircle
@@ -143,9 +143,10 @@ export const OnboardingForm: React.FC<OnboardingFormProps> = ({ onComplete }) =>
 
       toast.success('Profile created successfully!')
       onComplete()
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Onboarding error:', error)
-      setError(error.message || 'Failed to create profile. Please try again.')
+      const errorMessage = error instanceof Error ? error.message : 'Failed to create profile. Please try again.'
+      setError(errorMessage)
       toast.error('Failed to create profile')
     } finally {
       setLoading(false)
